@@ -1,6 +1,6 @@
 #include "Memory.h"
 
-#include "../platform/Platform.h"
+#include "../platform/platform.h"
 
 INLINE MemoryBlock GLOBAL CreateMemoryBlock(const int pages)
 {

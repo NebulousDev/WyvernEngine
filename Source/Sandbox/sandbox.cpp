@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Core\platform\Platform.h>
+#include <core\platform\platform.h>
 
 int main(char** args)
 {
@@ -9,7 +9,7 @@ int main(char** args)
 		"1.0.0",
 	};
 
-	CreateApplication(info);
+	//CreateApplication(info);
 
 	system("PAUSE");
 

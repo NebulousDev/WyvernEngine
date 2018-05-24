@@ -18,18 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="datatypes\DynamicList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="datatypes\DataType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="datatypes\DataTypeCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="datatypes\DataTypeAssert.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="memory\Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,16 +27,7 @@
     <ClInclude Include="platform\Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="platform\sdl\SDLPlatform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\opengl\GLContext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\Graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="datatypes\String.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,10 +35,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="datatypes\String.cpp">
+    <ClCompile Include="memory\Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="memory\Memory.cpp">
+    <ClCompile Include="platform\platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

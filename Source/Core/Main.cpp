@@ -1,5 +1,5 @@
 
-#include "Common.h"
+#include "common.h"
 
 void EXPORT Test()
 {
@@ -9,10 +9,10 @@ void EXPORT Test()
 
 int32 EXTERNAL EXPORT WyvernStart()
 {
-
+	return 0;
 }
 
 int32 EXTERNAL EXPORT UpdateAndRender()
 {
-
+	return 0;
 }

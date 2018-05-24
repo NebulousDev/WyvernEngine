@@ -1,6 +1,9 @@
 #pragma once
 
-#include "../Common.h"
+#include "../common.h"
+
+extern "C"
+{
 
 #define PLATFORM_EXIT_FORCED		1
 #define PLATFORM_EXIT_PEACEFULL		0
@@ -40,52 +43,21 @@ struct INTERNAL MemoryBlock
 	void*	memoryBlock;
 };
 
-#define PLATFORM_USE_SDL			0
+typedef int32(*_TestPlatform)(int32 test);
+typedef int32(*_LoadDLL)(const char* path);
 
-#if PLATFORM_USE_SDL == 1
+static _TestPlatform	sTestPlatformFunc;
+static _LoadDLL			sLoadDLLFunc;
 
-#include "sdl\SDLPlatform.h"
+#define TestPlatform(test)	sTestPlatformFunc(test)
+#define LoadDLL(path)		sLoadDLLFunc(path)
 
-#define _CreateApplication()		SDLCreateApplication()
-
-#define _CreateWindow(info)			SDLCreateWindow(info)
-
-#define _AllocPage(pages)			SDLAllocPage(pages)
-
-#define _FreePages()				SDLFreePages()
-
-#elif defined(_WIN32)
-
-//#include "windows\Win32Platform.h"
-
-#define _CreateApplication(info)	Win32CreateApplication(info)
-
-#define _CreateWindow(info)			Win32CreateWindow(info)
-
-#define _AllocPage(pages)			Win32AllocPage(pages)
-
-#define _FreePages()				Win32FreePages()
-
-#else
-#error No platform layer defined!
-#endif;
-
-int32 GLOBAL EXPORT INLINE CreateApplication(ApplicationInfo info)
+struct EXPORT PlatformFuncs
 {
-	return 0; // _CreateApplication(info);
-}
+	_TestPlatform	funcTestPlatform;
+	_LoadDLL		funcLoadDLL;
+};
 
-int32 GLOBAL EXPORT INLINE CreateWindow(WindowInfo info)
-{
-	return 0; // _CreateWindow(info);
-}
+int32 GLOBAL EXPORT LoadPlatformFunctions(PlatformFuncs funcs);
 
-int32 GLOBAL EXPORT INLINE AllocPage(const uint32 pages)
-{
-	return 0; //  _AllocPage(pages);
-}
-
-int32 GLOBAL EXPORT INLINE FreePages()
-{
-	return 0; //  _FreePages();
 }

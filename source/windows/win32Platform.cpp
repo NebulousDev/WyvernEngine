@@ -2,7 +2,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOCOMM
 
-#include "Win32Platform.h"
+#include "win32Platform.h"
 #include <Windows.h>
 #include <iostream>
 
@@ -13,7 +13,7 @@ LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 		case WM_DESTROY:
 		{
-			ExitApplication(PLATFORM_EXIT_PEACEFULL);
+			Win32ExitApplication(PLATFORM_EXIT_PEACEFULL);
 			return 0;
 		}
 
@@ -42,7 +42,7 @@ int32 GLOBAL Win32CreateApplication(HINSTANCE instance, ApplicationInfo info, WN
 	return WYVERN_SUCCESS;
 }
 
-int32 GLOBAL Win32CreateWindow(HINSTANCE instance, WNDCLASS windClass, WindowInfo info, HWND* wind)
+int32 GLOBAL win32CreateWindow(HINSTANCE instance, WNDCLASS windClass, WindowInfo info, HWND* wind)
 {
 	*wind = CreateWindowEx
 	(
@@ -63,8 +63,9 @@ int32 GLOBAL Win32CreateWindow(HINSTANCE instance, WNDCLASS windClass, WindowInf
 	return WYVERN_SUCCESS;
 }
 
-int32 GLOBAL Win32AllocPage(const uint32 pages)
+int32 GLOBAL Win32AllocPage(const uint32 pages, uint32* bytes, void* data)
 {
+	//data = VirtualAlloc(data, )
 	return WYVERN_SUCCESS;
 }
 
@@ -78,23 +79,51 @@ int32 GLOBAL Win32LoadDLL(const char* path)
 	return WYVERN_SUCCESS;
 }
 
-int32 GLOBAL ExitApplication(int32 code)
+int32 GLOBAL Win32ExitApplication(int32 code)
 {
 	PostQuitMessage(code);
 	return code;
 }
 
-int32 GLOBAL ForceKillApplication(int32 code)
+int32 GLOBAL Win32ForceKillApplication(int32 code)
 {
 	// TODO: implement ForceKillApplication
 	return code;
 }
 
-void GLOBAL DebugConsolePrint(const char* text)
+void GLOBAL Win32DebugConsolePrint(const char* text)
 {
 	DWORD charsWritten;
 	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), text, strlen(text), &charsWritten, NULL);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+typedef int32 (*_LoadPlatformFunctions)(PlatformFuncs funcs);
+static _LoadPlatformFunctions sLoadPlatformFunctionsFunc;
+#define LoadPlatformFunctions(funcs) sLoadPlatformFunctionsFunc(funcs)
+
+int32 Win32TestPlatform(int32 test)
+{
+	Win32DebugConsolePrint("TEST PLATFORM SUCCESS!");
+	return test;
+}
+
+int32 GLOBAL Win32LoadWyvernCore()
+{
+	HMODULE wyvernCoreDll = LoadLibrary("wyverncore.dll");
+
+	sLoadPlatformFunctionsFunc = (_LoadPlatformFunctions)GetProcAddress(wyvernCoreDll, "LoadPlatformFunctions");
+
+	PlatformFuncs funcs = {};
+	funcs.funcTestPlatform = &Win32TestPlatform;
+
+	LoadPlatformFunctions(funcs);
+
+	return WYVERN_SUCCESS;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
@@ -114,25 +143,27 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	AllocConsole();
 	SetConsoleTitleA("Debug Console");
-	DebugConsolePrint("Hello World!\n");
+	Win32DebugConsolePrint("Hello World!\n");
 
 	if (!Win32CreateApplication(hInstance, appInfo, &windClass))
 	{
-		DebugConsolePrint("Win32CreateApplication failed!");
+		Win32DebugConsolePrint("Win32CreateApplication failed!");
 		DWORD error = GetLastError();
-		ForceKillApplication(PLATFORM_EXIT_ERROR);
+		Win32ForceKillApplication(PLATFORM_EXIT_ERROR);
 		return PLATFORM_EXIT_ERROR;
 	}
 
-	if (!Win32CreateWindow(hInstance, windClass, windInfo, &wind))
+	if (!win32CreateWindow(hInstance, windClass, windInfo, &wind))
 	{
-		DebugConsolePrint("Win32CreateWindow failed!");
+		Win32DebugConsolePrint("Win32CreateWindow failed!");
 		DWORD error = GetLastError();
-		ForceKillApplication(PLATFORM_EXIT_ERROR);
+		Win32ForceKillApplication(PLATFORM_EXIT_ERROR);
 		return PLATFORM_EXIT_ERROR;
 	}
 
 	ShowWindow(wind, nCmdShow);
+
+	Win32LoadWyvernCore();
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0))
