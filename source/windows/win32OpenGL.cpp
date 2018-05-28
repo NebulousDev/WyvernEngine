@@ -1,6 +1,6 @@
 #include "win32OpenGL.h"
-#include <GL\glew.h>
-#include <GL\wglew.h>
+#include <GLEW\GL\glew.h>
+#include <GLEW\GL\wglew.h>
 
 #include "win32Platform.h"
 

@@ -3,7 +3,7 @@
 #include "win32OpenGL.h"
 #include <iostream>
 
-#include <GL\glew.h>
+#include <GLEW\GL\glew.h>
 
 LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

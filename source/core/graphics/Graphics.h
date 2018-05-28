@@ -1,13 +1,6 @@
 #pragma once
 
-struct GraphicsContext
+class IGraphicsAPI
 {
 
 };
-
-#if defined(GRAPHICS_OPENGL)
-
-#else
-#error No graphics api defined!
-
-#endif
