@@ -5,7 +5,11 @@
 #define EXTERNAL				
 #define INLINE					__inline
 #define EXPORT					__declspec(dllexport)
+
+#ifndef NULL
 #define NULL					0x00000000
+#endif // !NULL
+
 
 #define WYVERN_SUCCESS			1
 #define WYVERN_ERROR			0

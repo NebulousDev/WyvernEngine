@@ -18,21 +18,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="memory\Memory.h">
+    <ClInclude Include="memory\memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Common.h">
+    <ClInclude Include="common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="platform\Platform.h">
+    <ClInclude Include="platform\platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Graphics.h">
+    <ClInclude Include="graphics\graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="memory\Memory.cpp">
+    <ClCompile Include="memory\memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="platform\platform.cpp">

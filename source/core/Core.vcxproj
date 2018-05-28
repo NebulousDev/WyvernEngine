@@ -110,6 +110,8 @@
       <ProgramDatabaseFile>$(OutDir)\vsdebug\$(TargetName).pdb</ProgramDatabaseFile>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
+      <SubSystem>
+      </SubSystem>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
@@ -136,6 +138,8 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <ProgramDatabaseFile>$(OutDir)\vsdebug\$(TargetName).pdb</ProgramDatabaseFile>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
+      <SubSystem>
+      </SubSystem>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
@@ -172,6 +176,8 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <NoEntryPoint>true</NoEntryPoint>
       <ImportLibrary />
+      <SubSystem>
+      </SubSystem>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
@@ -207,6 +213,8 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <NoEntryPoint>true</NoEntryPoint>
       <ImportLibrary />
+      <SubSystem>
+      </SubSystem>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>

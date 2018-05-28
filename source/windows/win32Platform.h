@@ -1,5 +1,10 @@
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN	1
+#define NOCOMM				1
+
+#include <Windows.h>
+
 #include <Core\platform\platform.h>
 
 int32 GLOBAL Win32LoadDLL(const char* path);

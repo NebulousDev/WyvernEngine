@@ -2,10 +2,8 @@
 
 int32 GLOBAL LoadPlatformFunctions(PlatformFuncs funcs)
 {
-	sTestPlatformFunc	= funcs.funcTestPlatform;
-	sLoadDLLFunc		= funcs.funcLoadDLL;
-
-	int32 result = TestPlatform(12);
+	sLoadDLLFunc = funcs.funcLoadDLL;
+	sLoadFunctionFunc = funcs.funcLoadFunction;
 
 	return WYVERN_SUCCESS;
 }

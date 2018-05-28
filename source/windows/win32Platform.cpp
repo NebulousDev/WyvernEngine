@@ -1,18 +1,37 @@
 
-#define WIN32_LEAN_AND_MEAN
-#define NOCOMM
-
 #include "win32Platform.h"
-#include <Windows.h>
+#include "win32OpenGL.h"
 #include <iostream>
+
+#include <GL\glew.h>
 
 LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	HDC deviceContext = GetDC(hwnd);
+	GLContext glContext = NULL;
+
 	switch (uMsg)
 	{
+		case WM_CREATE:
+		{
+			glContext = Win32CreateOpenGLContext(deviceContext);
+
+			if (!glContext)
+			{
+				Win32DebugConsolePrint("Failed to create glContext!");
+			}
+
+			if (!Win32InitOpenGL())
+			{
+				Win32DebugConsolePrint("Failed to init GLEW!");
+			}
+
+			return 0;
+		}
 
 		case WM_DESTROY:
 		{
+			Win32DeleteOpenGLContext(glContext);
 			Win32ExitApplication(PLATFORM_EXIT_PEACEFULL);
 			return 0;
 		}
@@ -93,8 +112,9 @@ int32 GLOBAL Win32ForceKillApplication(int32 code)
 
 void GLOBAL Win32DebugConsolePrint(const char* text)
 {
-	DWORD charsWritten;
-	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), text, strlen(text), &charsWritten, NULL);
+	//DWORD charsWritten;
+	//WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), text, strlen(text), &charsWritten, NULL);
+	OutputDebugString(text);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -103,12 +123,6 @@ typedef int32 (*_LoadPlatformFunctions)(PlatformFuncs funcs);
 static _LoadPlatformFunctions sLoadPlatformFunctionsFunc;
 #define LoadPlatformFunctions(funcs) sLoadPlatformFunctionsFunc(funcs)
 
-int32 Win32TestPlatform(int32 test)
-{
-	Win32DebugConsolePrint("TEST PLATFORM SUCCESS!");
-	return test;
-}
-
 int32 GLOBAL Win32LoadWyvernCore()
 {
 	HMODULE wyvernCoreDll = LoadLibrary("wyverncore.dll");
@@ -116,7 +130,6 @@ int32 GLOBAL Win32LoadWyvernCore()
 	sLoadPlatformFunctionsFunc = (_LoadPlatformFunctions)GetProcAddress(wyvernCoreDll, "LoadPlatformFunctions");
 
 	PlatformFuncs funcs = {};
-	funcs.funcTestPlatform = &Win32TestPlatform;
 
 	LoadPlatformFunctions(funcs);
 
@@ -141,9 +154,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	windInfo.windowWidth	= 1280;
 	windInfo.windowHeight	= 720;
 
+	/*
 	AllocConsole();
 	SetConsoleTitleA("Debug Console");
 	Win32DebugConsolePrint("Hello World!\n");
+	*/
 
 	if (!Win32CreateApplication(hInstance, appInfo, &windClass))
 	{
@@ -164,6 +179,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(wind, nCmdShow);
 
 	Win32LoadWyvernCore();
+
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	SwapBuffers(GetDC(wind));
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0))
