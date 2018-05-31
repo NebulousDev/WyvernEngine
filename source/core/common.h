@@ -10,6 +10,7 @@
 #define NULL					0x00000000
 #endif // !NULL
 
+//TODO: SID 
 
 #define WYVERN_SUCCESS			1
 #define WYVERN_ERROR			0

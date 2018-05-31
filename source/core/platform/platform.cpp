@@ -7,3 +7,8 @@ int32 GLOBAL LoadPlatformFunctions(PlatformFuncs funcs)
 
 	return WYVERN_SUCCESS;
 }
+
+FuncHandle GLOBAL GetEnteranceFunc()
+{
+	return NULL;
+}

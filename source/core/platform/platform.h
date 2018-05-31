@@ -83,4 +83,6 @@ struct EXPORT PlatformFuncs
 
 int32 GLOBAL EXPORT LoadPlatformFunctions(PlatformFuncs funcs);
 
+FuncHandle GLOBAL EXPORT GetEnteranceFunc();
+
 }
