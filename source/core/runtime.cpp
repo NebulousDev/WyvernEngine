@@ -1,8 +1,14 @@
-#include "runtime.h"
+#include "common.h"
+#include "graphics\graphics.h"
 
-void WyvernUpdateAndRender(GraphicsDevice* device)
+static GraphicsDevice gfxDevice;	//TODO: MOVE ME
+
+EXPORT void UpdateAndRender()
 {
-	device->SetClearColor(1.0f, 1.0f, 0.0f);
-	device->ClearBuffers();
+	if(!gfxDevice.IsInitialized())
+		gfxDevice.InitGraphicsDevice<GFXAPI_OPENGL>();
+
+	gfxDevice.SetClearColor(0.0f, 1.0f, 1.0f);
+	gfxDevice.ClearBuffers();
 }
 

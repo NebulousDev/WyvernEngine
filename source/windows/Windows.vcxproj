@@ -189,7 +189,6 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32OpenGL.h" />
-    <ClInclude Include="win32Platform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

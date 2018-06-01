@@ -2,14 +2,30 @@
 #include <GLEW\GL\glew.h>
 #include <GLEW\GL\wglew.h>
 
-#include "win32Platform.h"
+/*=================================================================
+|	GLOBAL VARS                                                   |
+=================================================================*/
 
-int32 Win32InitOpenGL()
+static bool	sGLEWInitialized = false;
+
+/*=================================================================
+|	OPENGL FUNCS                                                  |
+=================================================================*/
+
+int32 InitOpenGL()
 {
-	return (glewInit() == GLEW_OK ? WYVERN_SUCCESS : WYVERN_ERROR);
+	if (sGLEWInitialized) return WYVERN_SUCCESS;
+
+	if (glewInit() == GLEW_OK)
+	{
+		sGLEWInitialized = true;
+		return WYVERN_SUCCESS;
+	}
+
+	return WYVERN_ERROR;
 }
 
-GLContext Win32CreateOpenGLContext(HDC device)
+GLContext GLCreateContext(HDC device)
 {
 	PIXELFORMATDESCRIPTOR pixelFormatDesc = {};
 	pixelFormatDesc.nSize		= sizeof(pixelFormatDesc);
@@ -25,7 +41,6 @@ GLContext Win32CreateOpenGLContext(HDC device)
 	SetPixelFormat(device, winPixelFormat, &pixelFormatDesc);
 
 	HGLRC glContext = wglCreateContext(device);
-	wglMakeCurrent(device, glContext);
 
 	if (!glContext)
 	{
@@ -36,7 +51,12 @@ GLContext Win32CreateOpenGLContext(HDC device)
 	return (GLContext)glContext;
 }
 
-int32 Win32DeleteOpenGLContext(GLContext context)
+int32 GLMakeContextCurrent(HDC device, GLContext context)
+{
+	return wglMakeCurrent(device, context) ? WYVERN_SUCCESS : WYVERN_ERROR;
+}
+
+int32 GLDeleteContext(GLContext context)
 {
 	return wglDeleteContext(context) ? WYVERN_SUCCESS : WYVERN_ERROR;
 }

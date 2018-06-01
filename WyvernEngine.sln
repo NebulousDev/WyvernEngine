@@ -5,9 +5,12 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "source\core\Core.vcxproj", "{CE4423F3-2211-426B-BFC0-1A6D047EF36B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Source\Sandbox\Sandbox.vcxproj", "{471FEC26-592E-4DBD-ABFC-C6D5B04ABEBC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "source\sandbox\Sandbox.vcxproj", "{471FEC26-592E-4DBD-ABFC-C6D5B04ABEBC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Windows", "source\windows\Windows.vcxproj", "{85764512-4E4B-43EA-BF16-33CB4EA55528}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE4423F3-2211-426B-BFC0-1A6D047EF36B} = {CE4423F3-2211-426B-BFC0-1A6D047EF36B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,10 +1,11 @@
 #pragma once
 
 #define GLOBAL					
-#define INTERNAL
+#define INTERNAL				
 #define EXTERNAL				
 #define INLINE					__inline
-#define EXPORT					__declspec(dllexport)
+#define EXPORT					extern "C" __declspec(dllexport)
+#define EXPORT_STRUCT			extern "C" struct __declspec(dllexport)
 
 #ifndef NULL
 #define NULL					0x00000000

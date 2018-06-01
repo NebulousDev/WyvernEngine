@@ -3,8 +3,14 @@
 #include "../common.h"
 #include "../graphics/graphics.h"
 
-extern "C"
-{
+//TODO: Make compiler flags
+/////////////////////////////////////////
+#define GFXAPI_OPENGL_ENABLED
+#define GFXAPI_VULKAN_ENABLED
+#define GFXAPI_DIRECT3D_9_ENABLED
+#define GFXAPI_DIRECT3D_11_ENABLED
+#define GFXAPI_DIRECT3D_12_ENABLED
+/////////////////////////////////////////
 
 /*=================================================================
 |	RETURN CODES                                                  |
@@ -18,7 +24,7 @@ extern "C"
 |	APPLICATION                                                   |
 =================================================================*/
 
-struct EXPORT ApplicationInfo
+EXPORT_STRUCT ApplicationInfo
 {
 	const char*	appName;
 	const char*	appVersion;
@@ -37,8 +43,8 @@ struct EXPORT ApplicationInfo
 #define WINDOW_FLAG_7			0x40
 #define WINDOW_FLAG_8			0x80
 
-struct EXPORT WindowInfo
-{
+EXPORT_STRUCT WindowInfo
+{ 
 	const char*	windowTitle;
 	uint32		windowPosX;
 	uint32		windowPosY;
@@ -69,18 +75,37 @@ typedef int32						DLLHandle;
 typedef int32						(*fLoadDLL)(const char* path);
 typedef int32						(*fLoadFunction)(const DLLHandle, const char* name);
 
-static fLoadDLL						sLoadDLLFunc;
-static fLoadFunction				sLoadFunctionFunc;
+#if defined(GFXAPI_OPENGL_ENABLED)
+typedef int32						(*fOpenGLCreateContext)();
+typedef int32						(*fOpenGLMakeContextCurrent)();
+#endif
+
+extern fLoadDLL						sLoadDLLFunc;
+extern fLoadFunction				sLoadFunctionFunc;
+
+#if defined(GFXAPI_OPENGL_ENABLED)
+extern fOpenGLCreateContext			sOpenGLCreateContextFunc;
+extern fOpenGLMakeContextCurrent	sOpenGLMakeContextCurrentFunc;
+#endif
 
 #define LoadDLL(path)				sLoadDLLFunc(path)
 #define LoadFunction(name)			sLoadFunctionFunc(name)
 
-struct EXPORT PlatformFuncs
+#if defined(GFXAPI_OPENGL_ENABLED)
+#define OpenGLCreateContext()		sOpenGLCreateContextFunc()
+#define OpenGLMakeContextCurrent()	sOpenGLMakeContextCurrentFunc()
+#endif
+
+EXPORT_STRUCT PlatformFuncs
 {
-	fLoadDLL		funcLoadDLL;
-	fLoadFunction	funcLoadFunction;
+	fLoadDLL					funcLoadDLL;
+	fLoadFunction				funcLoadFunction;
+
+#if defined(GFXAPI_OPENGL_ENABLED)
+	fOpenGLCreateContext		funcOpenGLCreateContext;
+	fOpenGLMakeContextCurrent	funcOpenGLMakeContextCurrent;
+#endif
+
 };
-
-int32 EXPORT LoadPlatformFunctions(PlatformFuncs funcs);
-
-}
+ 
+EXPORT int32 LoadPlatformFunctions(PlatformFuncs funcs);

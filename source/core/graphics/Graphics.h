@@ -21,9 +21,15 @@ private:
 	void(*mClearBuffersFunc)();
 	void(*mSetClearColorFunc)(const float32 r, const float32 g, const float32 b);
 
-public:
-	GFXAPI_TEMPLATE_DECL void InitGraphicsDevice();
+	bool mInitialized = false;
 
-	INLINE void ClearBuffers() { return mClearBuffersFunc(); }
-	INLINE void SetClearColor(const float32 r, const float32 g, const float32 b) { return mSetClearColorFunc(r, g, b); }
+public:
+	//GraphicsDevice() : mInitialized(false) {}
+
+	GFXAPI_TEMPLATE_DECL int32 InitGraphicsDevice();
+
+	INLINE void ClearBuffers() { mClearBuffersFunc(); }
+	INLINE void SetClearColor(const float32 r, const float32 g, const float32 b) { mSetClearColorFunc(r, g, b); }
+
+	INLINE bool IsInitialized() { return mInitialized; }
 };
