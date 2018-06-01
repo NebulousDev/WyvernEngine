@@ -7,6 +7,12 @@
 
 #include <Core\platform\platform.h>
 
+/*
+typedef	void						(*fUpdateAndRender)(GraphicsDevice* device);
+static fUpdateAndRender				sUpdateAndRenderFunc;
+#define UpdateAndRender(device)		sUpdateAndRenderFunc(device)
+*/
+
 int32 GLOBAL Win32LoadDLL(const char* path);
 
 int32 GLOBAL Win32ExitApplication(int32 code);

@@ -1,6 +1,8 @@
 #include "platform.h"
 
-int32 GLOBAL LoadPlatformFunctions(PlatformFuncs funcs)
+#include "../runtime.h"
+
+int32 LoadPlatformFunctions(PlatformFuncs funcs)
 {
 	sLoadDLLFunc = funcs.funcLoadDLL;
 	sLoadFunctionFunc = funcs.funcLoadFunction;
@@ -8,7 +10,9 @@ int32 GLOBAL LoadPlatformFunctions(PlatformFuncs funcs)
 	return WYVERN_SUCCESS;
 }
 
-FuncHandle GLOBAL GetEnteranceFunc()
+/*
+fUpdateAndRender GetUpdateAndRenderFunc()
 {
-	return NULL;
+	return &WyvernUpdateAndRender;
 }
+*/

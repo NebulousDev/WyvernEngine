@@ -1,19 +1,8 @@
-#include "common.h"
-#include "graphics\graphics.h"
+#include "runtime.h"
 
-/*
-extern "C"
+void WyvernUpdateAndRender(GraphicsDevice* device)
 {
-
-void EXPORT Initialize()
-{
-
+	device->SetClearColor(1.0f, 1.0f, 0.0f);
+	device->ClearBuffers();
 }
 
-void EXPORT UpdateAndRender(GraphicsDevice* device)
-{
-	device->ClearBuffers<API_OPENGL>(0);
-}
-
-}
-*/

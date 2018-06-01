@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../common.h"
+#include "../graphics/graphics.h"
 
 extern "C"
 {
@@ -63,26 +64,23 @@ struct INTERNAL MemoryBlock
 |	FUNCTIONS                                                     |
 =================================================================*/
 
-typedef int32				DLLHandle;
-typedef void*				FuncHandle;
+typedef int32						DLLHandle;
 
-typedef DLLHandle			(*_LoadDLL)(const char* path);
-typedef FuncHandle			(*_LoadFunction)(const DLLHandle, const char* name);
+typedef int32						(*fLoadDLL)(const char* path);
+typedef int32						(*fLoadFunction)(const DLLHandle, const char* name);
 
-static _LoadDLL				sLoadDLLFunc;
-static _LoadFunction		sLoadFunctionFunc;
+static fLoadDLL						sLoadDLLFunc;
+static fLoadFunction				sLoadFunctionFunc;
 
-#define LoadDLL(path)		sLoadDLLFunc(path)
-#define LoadFunction(name)	sLoadFunctionFunc(name)
+#define LoadDLL(path)				sLoadDLLFunc(path)
+#define LoadFunction(name)			sLoadFunctionFunc(name)
 
 struct EXPORT PlatformFuncs
 {
-	_LoadDLL		funcLoadDLL;
-	_LoadFunction	funcLoadFunction;
+	fLoadDLL		funcLoadDLL;
+	fLoadFunction	funcLoadFunction;
 };
 
-int32 GLOBAL EXPORT LoadPlatformFunctions(PlatformFuncs funcs);
-
-FuncHandle GLOBAL EXPORT GetEnteranceFunc();
+int32 EXPORT LoadPlatformFunctions(PlatformFuncs funcs);
 
 }

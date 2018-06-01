@@ -5,6 +5,8 @@
 
 #include <GLEW\GL\glew.h>
 
+//static GraphicsDevice gfxDevice;
+
 LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	HDC deviceContext = GetDC(hwnd);
@@ -38,6 +40,7 @@ LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 		case WM_PAINT:
 		{
+			//UpdateAndRender(&gfxDevice);
 			return 0;
 		}
 
@@ -179,6 +182,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(wind, nCmdShow);
 
 	Win32LoadWyvernCore();
+	//GetUpdateAndRenderFunc();
+
+	//gfxDevice.InitGraphicsDevice<GFXAPI_OPENGL>();
 
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
