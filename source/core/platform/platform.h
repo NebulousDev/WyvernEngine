@@ -75,6 +75,8 @@ typedef int32						DLLHandle;
 typedef int32						(*fLoadDLL)(const char* path);
 typedef int32						(*fLoadFunction)(const DLLHandle, const char* name);
 
+typedef void*						(*fAllocateBytes)(const uint32 size);
+
 #if defined(GFXAPI_OPENGL_ENABLED)
 typedef int32						(*fOpenGLCreateContext)();
 typedef int32						(*fOpenGLMakeContextCurrent)();
@@ -83,6 +85,8 @@ typedef int32						(*fOpenGLMakeContextCurrent)();
 extern fLoadDLL						sLoadDLLFunc;
 extern fLoadFunction				sLoadFunctionFunc;
 
+extern fAllocateBytes				sAllocateBytesFunc;
+
 #if defined(GFXAPI_OPENGL_ENABLED)
 extern fOpenGLCreateContext			sOpenGLCreateContextFunc;
 extern fOpenGLMakeContextCurrent	sOpenGLMakeContextCurrentFunc;
@@ -90,6 +94,8 @@ extern fOpenGLMakeContextCurrent	sOpenGLMakeContextCurrentFunc;
 
 #define LoadDLL(path)				sLoadDLLFunc(path)
 #define LoadFunction(name)			sLoadFunctionFunc(name)
+
+#define AllocateBytes(size)			sAllocateBytesFunc(size)
 
 #if defined(GFXAPI_OPENGL_ENABLED)
 #define OpenGLCreateContext()		sOpenGLCreateContextFunc()
@@ -100,6 +106,8 @@ EXPORT_STRUCT PlatformFuncs
 {
 	fLoadDLL					funcLoadDLL;
 	fLoadFunction				funcLoadFunction;
+
+	fAllocateBytes				funcAllocateBytes;
 
 #if defined(GFXAPI_OPENGL_ENABLED)
 	fOpenGLCreateContext		funcOpenGLCreateContext;

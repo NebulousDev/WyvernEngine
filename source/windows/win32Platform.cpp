@@ -61,29 +61,6 @@ int32 Win32OpenGLMakeContextCurrent()
 		== WYVERN_SUCCESS ? WYVERN_SUCCESS : WYVERN_ERROR;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
-
-int32 Win32LoadWyvernCore()
-{
-	HMODULE wyvernCoreDll = LoadLibrary("wyverncore.dll");
-
-	sLoadPlatformFunctionsFunc	= (fLoadPlatformFunctions)GetProcAddress(wyvernCoreDll, "LoadPlatformFunctions");
-	sUpdateAndRenderFunc		= (fUpdateAndRender)GetProcAddress(wyvernCoreDll, "UpdateAndRender");
-
-	PlatformFuncs funcs = {};
-
-#if defined(GFXAPI_OPENGL_ENABLED)
-	funcs.funcOpenGLCreateContext		= &Win32OpenGLCreateContext;
-	funcs.funcOpenGLMakeContextCurrent	= &Win32OpenGLMakeContextCurrent;
-#endif
-
-	LoadPlatformFunctions(funcs);
-
-	return WYVERN_SUCCESS;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
 /*=================================================================
 |	WIN32 MEMORY                                                  |
 =================================================================*/
@@ -126,6 +103,29 @@ void GLOBAL Win32DebugConsolePrint(const char* text)
 	//WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), text, strlen(text), &charsWritten, NULL);
 	OutputDebugString(text);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+int32 Win32LoadWyvernCore()
+{
+	HMODULE wyvernCoreDll = LoadLibrary("wyverncore.dll");
+
+	sLoadPlatformFunctionsFunc = (fLoadPlatformFunctions)GetProcAddress(wyvernCoreDll, "LoadPlatformFunctions");
+	sUpdateAndRenderFunc = (fUpdateAndRender)GetProcAddress(wyvernCoreDll, "UpdateAndRender");
+
+	PlatformFuncs funcs = {};
+
+#if defined(GFXAPI_OPENGL_ENABLED)
+		funcs.funcOpenGLCreateContext = &Win32OpenGLCreateContext;
+	funcs.funcOpenGLMakeContextCurrent = &Win32OpenGLMakeContextCurrent;
+#endif
+
+	LoadPlatformFunctions(funcs);
+
+	return WYVERN_SUCCESS;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 /*=================================================================
 |	WIN32 WINDOW CALLBACK                                         |

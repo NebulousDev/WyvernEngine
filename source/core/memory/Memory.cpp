@@ -2,16 +2,75 @@
 
 #include "../platform/platform.h"
 
-INLINE MemoryBlock GLOBAL CreateMemoryBlock(const int pages)
+#include <malloc.h>
+
+StackAllocator::StackAllocator(const uint32 size)
+	: mSize(size), mUsed(0), mRemaining(size)
 {
-	// MemoryBlock block = {};
-	// block.memorySize	= pages * PAGE_SIZE;
-	// block.memoryBlock	= AllocPage(pages);
-	// 
-	// return block;
+	//TODO: Replace malloc with custom platform allocation
+	mStart = (ubyte8*)malloc(size);
+	mEnd = mStart + size;
+
+	mNext = mStart;
 }
 
-INLINE void* GLOBAL Alloc(MemoryBlock* memory, const uint32 size)
+template<typename Object>
+Object* StackAllocator::Allocate()
 {
+	uint32 objSize = sizeof(Object);
+	if (objSize < mRemaining)
+	{
+		// TODO: Add assertions
+		void* data = mNext;
 
+		mNext += objSize;
+		mUsed += objSize;
+		mRemaining -= objSize;
+
+		return (Object*)data;
+	}
+	
+	return NULL;
+}
+
+template<typename Object>
+Object* StackAllocator::AllocateArray(const uint32 num)
+{
+	uint32 objSize = sizeof(Object) * num;
+	if (objSize < mRemaining)
+	{
+		// TODO: Add assertions
+		void* data = mNext;
+
+		mNext += objSize;
+		mUsed += objSize;
+		mRemaining -= objSize;
+
+		return (Object*)data;
+	}
+
+	return NULL;
+}
+
+void StackAllocator::Free(void* data)
+{
+	if (data >= mStart && data <= mEnd)
+	{
+		// TODO: Add assertions
+		uint32 sizeFreed = (uint32)mNext - (uint32)data;
+		
+		mNext = (ubyte8*)data;
+		mRemaining += sizeFreed;
+		mUsed -= sizeFreed;
+	}
+}
+
+void StackAllocator::FreeAll()
+{
+	Free(mStart);
+}
+
+void StackAllocator::Release()
+{
+	free(mStart);
 }
