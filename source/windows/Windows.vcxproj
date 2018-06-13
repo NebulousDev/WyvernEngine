@@ -186,11 +186,9 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
   <ItemGroup>
     <ClCompile Include="win32OpenGL.cpp" />
     <ClCompile Include="win32Platform.cpp" />
-    <ClCompile Include="win32Vulkan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="win32OpenGL.h" />
-    <ClInclude Include="win32Vulkan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
