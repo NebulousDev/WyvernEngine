@@ -52,7 +52,7 @@ Object* StackAllocator::AllocateArray(const uint32 num)
 	return NULL;
 }
 
-void StackAllocator::Free(void* data)
+void StackAllocator::Free(uint8* data)
 {
 	if (data >= mStart && data <= mEnd)
 	{

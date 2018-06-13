@@ -24,7 +24,7 @@ public:
 	template<typename Object>
 	INLINE Object* AllocateArray(const uint32 num);
 
-	INLINE void Free(void* data);
+	INLINE void Free(uint8* data);
 
 	INLINE void FreeAll();
 

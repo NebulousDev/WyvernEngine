@@ -120,7 +120,7 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>user32.lib;gdi32.lib;glew32s.lib;opengl32.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalDependencies>user32.lib;gdi32.lib;glew32s.lib;opengl32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\libs_x64</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
@@ -173,7 +173,7 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>user32.lib;gdi32.lib;glew32s.lib;opengl32.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalDependencies>user32.lib;gdi32.lib;glew32s.lib;opengl32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)libs\libs_x64</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
