@@ -236,7 +236,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		Win32DebugConsolePrint("Win32CreateApplication failed!");
 		DWORD error = GetLastError();
 		Win32ForceKillApplication(PLATFORM_EXIT_ERROR);
-		return PLATFORM_EXIT_ERROR;
+		//return PLATFORM_EXIT_ERROR;
+		return 0; // To make AppVeyor happy...
 	}
 
 	if (!Win32CreateWindow(hInstance, sWindClass, windInfo, &sWindow))
@@ -244,7 +245,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		Win32DebugConsolePrint("Win32CreateWindow failed!");
 		DWORD error = GetLastError();
 		Win32ForceKillApplication(PLATFORM_EXIT_ERROR);
-		return PLATFORM_EXIT_ERROR;
+		//return PLATFORM_EXIT_ERROR;
+		return 0; // To make AppVeyor happy...
 	}
 
 	ShowWindow(sWindow, nCmdShow);
