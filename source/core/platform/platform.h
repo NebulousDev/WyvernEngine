@@ -72,14 +72,14 @@ struct INTERNAL MemoryBlock
 
 typedef int32						DLLHandle;
 
-typedef int32						(*fLoadDLL)(const char* path);
-typedef int32						(*fLoadFunction)(const DLLHandle, const char* name);
+typedef RESULT						(*fLoadDLL)(const char* path);
+typedef RESULT						(*fLoadFunction)(const DLLHandle, const char* name);
 
 typedef void*						(*fAllocateBytes)(const uint32 size);
 
 #if defined(GFXAPI_OPENGL_ENABLED)
-typedef int32						(*fOpenGLCreateContext)();
-typedef int32						(*fOpenGLMakeContextCurrent)();
+typedef RESULT						(*fOpenGLCreateContext)();
+typedef RESULT						(*fOpenGLMakeContextCurrent)();
 #endif
 
 extern fLoadDLL						sLoadDLLFunc;

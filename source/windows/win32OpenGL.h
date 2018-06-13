@@ -13,10 +13,10 @@
 
 typedef HGLRC GLContext;
 
-int32		InitOpenGL();
-
-GLContext	GLCreateContext(HDC device);
-
-int32		GLMakeContextCurrent(HDC device, GLContext context);
-
-int32		GLDeleteContext(GLContext context);
+RESULT InitOpenGL();
+	   
+RESULT GLCreateContext(GLContext* glContext, HDC device);
+	   
+RESULT GLMakeContextCurrent(HDC device, GLContext context);
+	   
+RESULT GLDeleteContext(GLContext context);

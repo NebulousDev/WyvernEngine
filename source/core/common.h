@@ -13,11 +13,16 @@
 
 //TODO: SID 
 
-#define WYVERN_SUCCESS			1
-#define WYVERN_ERROR			0
-
 #define TYPE_STRING				char*
 typedef TYPE_STRING				string;
+
+enum WyvernResult
+{
+	WYVERN_ERROR				= 0,
+	WYVERN_SUCCESS				= 1
+};
+
+#define RESULT					WyvernResult
 
 #if defined(_MSVC_LANG)
 

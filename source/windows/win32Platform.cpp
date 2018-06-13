@@ -43,9 +43,9 @@ static fUpdateAndRender					sUpdateAndRenderFunc;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-int32 Win32OpenGLCreateContext()
+INLINE RESULT Win32OpenGLCreateContext()
 {
-	sGLContext = GLCreateContext(sDevice);
+	GLCreateContext(&sGLContext, sDevice);
 
 	if (!sGLContext) return WYVERN_ERROR;
 
@@ -55,7 +55,7 @@ int32 Win32OpenGLCreateContext()
 	return WYVERN_SUCCESS;
 }
 
-int32 Win32OpenGLMakeContextCurrent()
+INLINE RESULT Win32OpenGLMakeContextCurrent()
 {
 	return GLMakeContextCurrent(sDevice, sGLContext) 
 		== WYVERN_SUCCESS ? WYVERN_SUCCESS : WYVERN_ERROR;
@@ -65,18 +65,18 @@ int32 Win32OpenGLMakeContextCurrent()
 |	WIN32 MEMORY                                                  |
 =================================================================*/
 
-int32 GLOBAL Win32AllocPage(const uint32 pages, uint32* bytes, void* data)
+int32 Win32AllocPage(const uint32 pages, uint32* bytes, void* data)
 {
 	//data = VirtualAlloc(data, )
 	return WYVERN_SUCCESS;
 }
 
-int32 GLOBAL Win32FreePages()
+int32 Win32FreePages()
 {
 	return WYVERN_SUCCESS;
 }
 
-int32 GLOBAL Win32LoadDLL(const char* path)
+int32 Win32LoadDLL(const char* path)
 {
 	return WYVERN_SUCCESS;
 }
@@ -85,19 +85,17 @@ int32 GLOBAL Win32LoadDLL(const char* path)
 |	WIN32 APPLICATION                                             |
 =================================================================*/
 
-int32 GLOBAL Win32ExitApplication(int32 code)
+INLINE void Win32ExitApplication(int32 code)
 {
 	PostQuitMessage(code);
-	return code;
 }
 
-int32 GLOBAL Win32ForceKillApplication(int32 code)
+INLINE void Win32ForceKillApplication(int32 code)
 {
 	// TODO: implement ForceKillApplication
-	return code;
 }
 
-void GLOBAL Win32DebugConsolePrint(const char* text)
+INLINE void Win32DebugConsolePrint(const char* text)
 {
 	//DWORD charsWritten;
 	//WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), text, strlen(text), &charsWritten, NULL);
@@ -106,7 +104,7 @@ void GLOBAL Win32DebugConsolePrint(const char* text)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-int32 Win32LoadWyvernCore()
+RESULT Win32LoadWyvernCore()
 {
 	HMODULE wyvernCoreDll = LoadLibrary("wyverncore.dll");
 
@@ -178,7 +176,7 @@ LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 |	WIN32 CREATE APPLICATION                                      |
 =================================================================*/
 
-int32 GLOBAL Win32CreateApplication(HINSTANCE instance, ApplicationInfo info, WNDCLASS* windClass)
+RESULT Win32CreateApplication(HINSTANCE instance, ApplicationInfo info, WNDCLASS* windClass)
 {
 	windClass->style				= CS_OWNDC|CS_HREDRAW|CS_VREDRAW;
 	windClass->lpszClassName		= info.appName;
@@ -193,7 +191,7 @@ int32 GLOBAL Win32CreateApplication(HINSTANCE instance, ApplicationInfo info, WN
 	return WYVERN_SUCCESS;
 }
 
-int32 GLOBAL win32CreateWindow(HINSTANCE instance, WNDCLASS windClass, WindowInfo info, HWND* wind)
+RESULT Win32CreateWindow(HINSTANCE instance, WNDCLASS windClass, WindowInfo info, HWND* wind)
 {
 	*wind = CreateWindowEx
 	(
@@ -241,7 +239,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		return PLATFORM_EXIT_ERROR;
 	}
 
-	if (!win32CreateWindow(hInstance, sWindClass, windInfo, &sWindow))
+	if (!Win32CreateWindow(hInstance, sWindClass, windInfo, &sWindow))
 	{
 		Win32DebugConsolePrint("Win32CreateWindow failed!");
 		DWORD error = GetLastError();

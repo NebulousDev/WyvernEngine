@@ -12,7 +12,7 @@ static bool	sGLEWInitialized = false;
 |	OPENGL FUNCS                                                  |
 =================================================================*/
 
-int32 InitOpenGL()
+RESULT InitOpenGL()
 {
 	if (sGLEWInitialized) return WYVERN_SUCCESS;
 
@@ -25,7 +25,7 @@ int32 InitOpenGL()
 	return WYVERN_ERROR;
 }
 
-GLContext GLCreateContext(HDC device)
+RESULT GLCreateContext(GLContext* glContext, HDC device)
 {
 	PIXELFORMATDESCRIPTOR pixelFormatDesc = {};
 	pixelFormatDesc.nSize		= sizeof(pixelFormatDesc);
@@ -40,23 +40,21 @@ GLContext GLCreateContext(HDC device)
 	winPixelFormat = ChoosePixelFormat(device, &pixelFormatDesc);
 	SetPixelFormat(device, winPixelFormat, &pixelFormatDesc);
 
-	HGLRC glContext = wglCreateContext(device);
+	*glContext = wglCreateContext(device);
 
 	if (!glContext)
 	{
 		MessageBoxA(0, "Critical Error! Failed to create glContext!", "GL CONTEXT CREATION FAILED", 0);
 		return WYVERN_ERROR;
 	}
-
-	return (GLContext)glContext;
 }
 
-int32 GLMakeContextCurrent(HDC device, GLContext context)
+RESULT GLMakeContextCurrent(HDC device, GLContext context)
 {
 	return wglMakeCurrent(device, context) ? WYVERN_SUCCESS : WYVERN_ERROR;
 }
 
-int32 GLDeleteContext(GLContext context)
+RESULT GLDeleteContext(GLContext context)
 {
 	return wglDeleteContext(context) ? WYVERN_SUCCESS : WYVERN_ERROR;
 }

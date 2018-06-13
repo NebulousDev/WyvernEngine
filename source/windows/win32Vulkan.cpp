@@ -5,7 +5,7 @@
 
 #include <vector>
 
-int32 Win32VulkanCreateInstance(ApplicationInfo appInfo, VkInstance* instance)
+RESULT Win32VulkanCreateInstance(ApplicationInfo appInfo, VkInstance* instance)
 {
 	VkApplicationInfo applicationInfo = {};
 	applicationInfo.sType				= VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -33,7 +33,7 @@ void Win32VulkanDestroyInstance(VkInstance* instance)
 	instance = NULL;
 }
 
-int32 Win32VulkanEnumerateDevices(VkInstance instance, uint32* deviceCount)
+RESULT Win32VulkanEnumerateDevices(VkInstance instance, uint32* deviceCount)
 {
 	VkResult result = vkEnumeratePhysicalDevices(instance, deviceCount, NULL);
 
