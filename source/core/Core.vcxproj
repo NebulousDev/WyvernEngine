@@ -129,13 +129,13 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.1.73.0\Include;$(SolutionDir)libs\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(OutDir)\vsdebug\$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalLibraryDirectories>C:\VulkanSDK\1.1.73.0\Lib;$(SolutionDir)libs\libs_x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\libs_x64</AdditionalLibraryDirectories>
       <SubSystem>
       </SubSystem>
       <NoEntryPoint />
@@ -200,17 +200,17 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <ConformanceMode>true</ConformanceMode>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.1.73.0\Include;$(SolutionDir)libs\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\include</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(OutDir)\vsdebug\$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalLibraryDirectories>C:\VulkanSDK\1.1.73.0\Lib;$(SolutionDir)libs\libs_x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\libs_x64</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <NoEntryPoint>
       </NoEntryPoint>
