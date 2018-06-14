@@ -60,7 +60,7 @@ artifacts/
 *_i.h
 *.ilk
 *.meta
-*.obj
+#*.obj // Removed for wavefront obj files
 *.pch
 *.pdb
 *.pgc
