@@ -47,6 +47,8 @@ RESULT GLCreateContext(GLContext* glContext, HDC device)
 		MessageBoxA(0, "Critical Error! Failed to create glContext!", "GL CONTEXT CREATION FAILED", 0);
 		return WYVERN_ERROR;
 	}
+
+	return WYVERN_SUCCESS;
 }
 
 RESULT GLMakeContextCurrent(HDC device, GLContext context)

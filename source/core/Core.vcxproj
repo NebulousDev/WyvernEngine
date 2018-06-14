@@ -100,17 +100,20 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.1.73.0\Include;$(SolutionDir)libs\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(OutDir)\vsdebug\$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalLibraryDirectories>C:\VulkanSDK\1.1.73.0\Lib32;$(SolutionDir)libs\libs_x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\libs_x86</AdditionalLibraryDirectories>
       <SubSystem>
       </SubSystem>
       <NoEntryPoint />
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
@@ -130,6 +133,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)libs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glew32s.lib;opengl32.lib</AdditionalDependencies>
@@ -140,6 +144,8 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       </SubSystem>
       <NoEntryPoint />
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
@@ -162,23 +168,26 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <ConformanceMode>true</ConformanceMode>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.1.73.0\Include;$(SolutionDir)libs\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\include</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <PreprocessorDefinitions>GLEW_STATIC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(OutDir)\vsdebug\$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalLibraryDirectories>C:\VulkanSDK\1.1.73.0\Lib32;$(SolutionDir)libs\libs_x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\libs_x86</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <NoEntryPoint>
       </NoEntryPoint>
       <ImportLibrary />
       <SubSystem>
       </SubSystem>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
@@ -203,6 +212,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <AdditionalIncludeDirectories>$(SolutionDir)libs\include</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <PreprocessorDefinitions>GLEW_STATIC;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -217,6 +227,8 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <ImportLibrary />
       <SubSystem>
       </SubSystem>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
@@ -229,7 +241,10 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="loaders\objModelLoader.h" />
+    <ClInclude Include="math\mathCommon.h" />
     <ClInclude Include="math\math.h" />
+    <ClInclude Include="math\matrix.h" />
     <ClInclude Include="math\shapes.h" />
     <ClInclude Include="math\vector.h" />
     <ClInclude Include="memory\memory.h" />
@@ -240,6 +255,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
   <ItemGroup>
     <ClCompile Include="graphics\direct3D11\d3D11Graphics.cpp" />
     <ClCompile Include="graphics\opengl\glGraphics.cpp" />
+    <ClCompile Include="loaders\objModelLoader.cpp" />
     <ClCompile Include="runtime.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="platform\platform.cpp" />

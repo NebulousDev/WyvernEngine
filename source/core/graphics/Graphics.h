@@ -15,7 +15,7 @@
 #define GFXAPI_TEMPLATE			template<uint8 GFXAPI>
 #define GFXAPI_TEMPLATE_DEF		template<>
 
-struct GFXBufferHandle
+struct GFXStaticBuffer
 {
 	uint32 bufferID;
 	uint32 bufferSize;
@@ -24,20 +24,20 @@ struct GFXBufferHandle
 class GraphicsDevice
 {
 private:
-	RESULT(*mClearBuffersFunc)();
-	RESULT(*mSetClearColorFunc)(const float32 r, const float32 g, const float32 b);
-	RESULT(*mCreateGraphicsBuffer)(GFXBufferHandle* buffer, uint32 size);
-	RESULT(*mPutVertexBuffer)(GFXBufferHandle buffer, uint8* data);
+	void(*mClearBuffersFunc)();
+	void(*mSetClearColorFunc)(const float32 r, const float32 g, const float32 b);
+	RESULT(*mCreateGraphicsBuffer)(GFXStaticBuffer* buffer);
+	RESULT(*mPutGraphicsBuffer)(GFXStaticBuffer buffer, const uint8* data, const uint32 size);
 
 	bool mInitialized = false;
 
 public:
-	GFXAPI_TEMPLATE int32 InitGraphicsDevice();
+	GFXAPI_TEMPLATE RESULT InitGraphicsDevice();
 
-	INLINE RESULT ClearBuffers() { return mClearBuffersFunc(); }
-	INLINE RESULT SetClearColor(const float32 r, const float32 g, const float32 b) { return mSetClearColorFunc(r, g, b); }
-	INLINE RESULT CreateGraphicsBuffer(GFXBufferHandle* buffer, uint32 size) { return mCreateGraphicsBuffer(buffer, size); };
-	INLINE RESULT PutVertexBuffer(GFXBufferHandle buffer, uint8* data) { return mPutVertexBuffer(buffer, data); };
+	INLINE void ClearBuffers() { mClearBuffersFunc(); }
+	INLINE void SetClearColor(const float32 r, const float32 g, const float32 b) { mSetClearColorFunc(r, g, b); }
+	INLINE RESULT CreateGraphicsBuffer(GFXStaticBuffer* buffer) { return mCreateGraphicsBuffer(buffer); };
+	INLINE RESULT PutGraphicsBuffer(GFXStaticBuffer buffer, const uint8* data, const uint32 size) { return mPutGraphicsBuffer(buffer, data, size); };
 
 	INLINE bool32 IsInitialized() { return mInitialized; }
 };
