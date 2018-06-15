@@ -59,7 +59,7 @@ void GLDrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-GFXAPI_TEMPLATE_DEF RESULT GraphicsDevice::InitGraphicsDevice<GFXAPI_OPENGL>()
+GFXAPI_TEMPLATE_DEF RESULT Graphics::CreateGraphics<GFXAPI_OPENGL>()
 {
 	//TODO: Destroy previous context
 
@@ -69,13 +69,18 @@ GFXAPI_TEMPLATE_DEF RESULT GraphicsDevice::InitGraphicsDevice<GFXAPI_OPENGL>()
 
 	glewInit(); // Is this the best place to init GLEW?
 
-	mClearBuffersFunc		= &GLClearBuffers;
-	mSetClearColorFunc		= &GLSetClearColor;
-	mCreateGraphicsBuffer	= &GLCreateGraphicsBuffer;
-	mPutGraphicsBuffer		= &GLPutGraphicsBuffer;
-	mDrawIndexedBuffers		= &GLDrawIndexedBuffers;
+	fpClearBuffers		= &GLClearBuffers;
+	fpSetClearColor		= &GLSetClearColor;
+	fpCreateGraphicsBuffer	= &GLCreateGraphicsBuffer;
+	fpPutGraphicsBuffer		= &GLPutGraphicsBuffer;
+	fpDrawIndexedBuffers		= &GLDrawIndexedBuffers;
 
 	mInitialized = true;
 		
+	return WYVERN_SUCCESS;
+}
+
+GFXAPI_TEMPLATE_DEF RESULT Graphics::DestroyGraphics<GFXAPI_OPENGL>()
+{
 	return WYVERN_SUCCESS;
 }

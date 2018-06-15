@@ -27,29 +27,30 @@ enum GraphicsBufferType
 	INDEX_BUFFER_DATA
 };
 
-class GraphicsDevice
+class Graphics
 {
 private:
-	void(*mClearBuffersFunc)();
-	void(*mSetClearColorFunc)(const float32 r, const float32 g, const float32 b);
-	RESULT(*mCreateGraphicsBuffer)(GraphicsBuffer* buffer);
-	RESULT(*mPutGraphicsBuffer)(const GraphicsBufferType type,
-		GraphicsBuffer* buffer, const uint8* data, const uint32 size);
-	void(*mDrawIndexedBuffers)(const GraphicsBuffer vbo, const GraphicsBuffer ibo);
+	void	(*fpClearBuffers)();
+	void	(*fpSetClearColor)(const float32 r, const float32 g, const float32 b);
+	RESULT	(*fpCreateGraphicsBuffer)(GraphicsBuffer* buffer);
+	RESULT	(*fpPutGraphicsBuffer)(const GraphicsBufferType type,
+				GraphicsBuffer* buffer, const uint8* data, const uint32 size);
+	void	(*fpDrawIndexedBuffers)(const GraphicsBuffer vbo, const GraphicsBuffer ibo);
 
-	bool mInitialized = false;
+	bool	mInitialized = false;
 
 public:
-	GFXAPI_TEMPLATE RESULT InitGraphicsDevice();
+	GFXAPI_TEMPLATE RESULT CreateGraphics();
+	GFXAPI_TEMPLATE RESULT DestroyGraphics();
 
-	INLINE void ClearBuffers() { mClearBuffersFunc(); }
-	INLINE void SetClearColor(const float32 r, const float32 g, const float32 b) { mSetClearColorFunc(r, g, b); }
+	INLINE void		ClearBuffers() { fpClearBuffers(); }
+	INLINE void		SetClearColor(const float32 r, const float32 g, const float32 b) { fpSetClearColor(r, g, b); }
 	
-	INLINE RESULT CreateGraphicsBuffer(GraphicsBuffer* buffer) { return mCreateGraphicsBuffer(buffer); };
-	INLINE RESULT PutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer,
-		const uint8* data, const uint32 size) { return mPutGraphicsBuffer(type, buffer, data, size); };
+	INLINE RESULT	CreateGraphicsBuffer(GraphicsBuffer* buffer) { return fpCreateGraphicsBuffer(buffer); };
+	INLINE RESULT	PutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer,
+						const uint8* data, const uint32 size) { return fpPutGraphicsBuffer(type, buffer, data, size); };
 
-	INLINE void DrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo) { mDrawIndexedBuffers(vbo, ibo); };
+	INLINE void		DrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo) { fpDrawIndexedBuffers(vbo, ibo); };
 
-	INLINE bool32 IsInitialized() { return mInitialized; }
+	INLINE bool32	IsInitialized() { return mInitialized; }
 };

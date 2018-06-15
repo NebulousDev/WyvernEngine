@@ -1,0 +1,87 @@
+#include "runtime.h"
+
+extern LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+RESULT Runtime::CreateRuntime(Win32State* state, const char* dll)
+{
+	HMODULE runtime = LoadLibrary(dll);
+
+	if (!runtime)
+	{
+		MessageBox(state->window, "Error creating runtime.", "Error", MB_OK);
+		return WYVERN_ERROR;
+	}
+
+	fpCreate = (FuncTypeCreate)GetProcAddress(runtime, "Create");
+	fpUpdate = (FuncTypeUpdate)GetProcAddress(runtime, "Update");
+	fpDestroy = (FuncTypeDestroy)GetProcAddress(runtime, "Destroy");
+
+	if (!fpCreate || !fpUpdate || !fpDestroy)
+	{
+		MessageBox(state->window, "Error creating runtime. Failed to retrieve function pointers.", "Error", MB_OK);
+		return WYVERN_ERROR;
+	}
+
+	return WYVERN_SUCCESS;
+}
+
+RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* windInfo)
+{
+	/*
+	AllocConsole();
+	SetConsoleTitleA("Debug Console");
+	Win32DebugConsolePrint("Hello World!\n");
+	*/
+
+	state->windClass.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+	state->windClass.lpszClassName = appInfo->appName;
+	state->windClass.hInstance = state->instance;
+	state->windClass.lpfnWndProc = &HandleEvents;
+
+	HandleEvents(state->window, STARTUP_STATE_MESSAGE, (WPARAM)&state, NULL);
+
+	if (!RegisterClass(&state->windClass))
+	{
+		MessageBox(state->window, "Error creating application. Error Code: [DO LATER]", "Error", MB_OK);
+		return WYVERN_ERROR;
+	}
+
+	state->window = CreateWindowEx
+	(
+		0,
+		state->windClass.lpszClassName,
+		windInfo->windowTitle,
+		WS_OVERLAPPEDWINDOW,
+		windInfo->windowPosX, windInfo->windowPosY,
+		windInfo->windowWidth, windInfo->windowHeight,
+		NULL, NULL, state->instance, NULL
+	);
+
+	if (state->window == NULL)
+	{
+		DWORD error = GetLastError();
+		MessageBox(state->window, "Error creating window. Error Code: [DO LATER]", "Error", MB_OK);
+		return WYVERN_ERROR;
+	}
+
+	Runtime runtime;
+	RESULT runtimeResult = runtime.CreateRuntime(state, CORE_DLL_NAME);
+
+	if (runtimeResult == WYVERN_ERROR)
+		return WYVERN_ERROR;
+
+	HandleEvents(state->window, NEW_RUNTIME_MESSAGE, (WPARAM)&runtime, NULL);
+
+	ShowWindow(state->window, state->show);
+
+	state->running = true;
+
+	MSG msg = {};
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return WYVERN_SUCCESS;
+}
