@@ -15,25 +15,25 @@ void GLSetClearColor(const float32 r, const float32 g, const float32 b)
 
 RESULT GLCreateGraphicsBuffer(GraphicsBuffer* buffer)
 {
-	glGenBuffers(1, buffer);
+	glGenBuffers(1, &buffer->bufferID);
 	return WYVERN_SUCCESS;
 }
 
-RESULT GLPutGraphicsBuffer(const GraphicsBufferType type, const GraphicsBuffer buffer, const uint8* data, const uint32 size)
+RESULT GLPutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer, const uint8* data, const uint32 size)
 {
 	switch (type)
 	{
 
 	case VERTEX_BUFFER_DATA:
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+		glBindBuffer(GL_ARRAY_BUFFER, buffer->bufferID);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 		break;
 	}
 
 	case INDEX_BUFFER_DATA:
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->bufferID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 		break;
 	}
@@ -42,20 +42,32 @@ RESULT GLPutGraphicsBuffer(const GraphicsBufferType type, const GraphicsBuffer b
 		break;
 	}
 
+	buffer->size = size;
+
 	return WYVERN_SUCCESS;
 }
 
 void GLDrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo)
 {
+	glBindBuffer(GL_ARRAY_BUFFER, vbo.bufferID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo.bufferID);
 
+	glDrawElements(GL_TRIANGLE_STRIP, ibo.size, GL_UNSIGNED_INT, NULL);
+
+	//TODO: Dont unbind
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 GFXAPI_TEMPLATE_DEF RESULT GraphicsDevice::InitGraphicsDevice<GFXAPI_OPENGL>()
 {
 	//TODO: Destroy previous context
 
+	//TODO: Rename these with Platform prefix:
 	if (OpenGLCreateContext() == WYVERN_ERROR) return WYVERN_ERROR;
 	if (OpenGLMakeContextCurrent() == WYVERN_ERROR) return WYVERN_ERROR;
+
+	glewInit(); // Is this the best place to init GLEW?
 
 	mClearBuffersFunc		= &GLClearBuffers;
 	mSetClearColorFunc		= &GLSetClearColor;

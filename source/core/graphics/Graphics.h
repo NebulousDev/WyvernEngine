@@ -15,7 +15,11 @@
 #define GFXAPI_TEMPLATE			template<uint8 GFXAPI>
 #define GFXAPI_TEMPLATE_DEF		template<>
 
-typedef uint32 GraphicsBuffer;
+struct GraphicsBuffer
+{
+	uint32 bufferID;
+	uint32 size;
+};
 
 enum GraphicsBufferType
 {
@@ -30,7 +34,7 @@ private:
 	void(*mSetClearColorFunc)(const float32 r, const float32 g, const float32 b);
 	RESULT(*mCreateGraphicsBuffer)(GraphicsBuffer* buffer);
 	RESULT(*mPutGraphicsBuffer)(const GraphicsBufferType type,
-		const GraphicsBuffer buffer, const uint8* data, const uint32 size);
+		GraphicsBuffer* buffer, const uint8* data, const uint32 size);
 	void(*mDrawIndexedBuffers)(const GraphicsBuffer vbo, const GraphicsBuffer ibo);
 
 	bool mInitialized = false;
@@ -42,7 +46,7 @@ public:
 	INLINE void SetClearColor(const float32 r, const float32 g, const float32 b) { mSetClearColorFunc(r, g, b); }
 	
 	INLINE RESULT CreateGraphicsBuffer(GraphicsBuffer* buffer) { return mCreateGraphicsBuffer(buffer); };
-	INLINE RESULT PutGraphicsBuffer(const GraphicsBufferType type, const GraphicsBuffer buffer,
+	INLINE RESULT PutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer,
 		const uint8* data, const uint32 size) { return mPutGraphicsBuffer(type, buffer, data, size); };
 
 	INLINE void DrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo) { mDrawIndexedBuffers(vbo, ibo); };

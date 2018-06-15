@@ -137,20 +137,6 @@ LRESULT CALLBACK Win32WindowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 		case WM_CREATE:
 		{
 			sDevice = GetDC(hwnd);
-			/*
-			sGLContext = GLCreateContext(sDevice);
-
-			if (!sGLContext)
-			{
-				Win32DebugConsolePrint("Failed to create glContext!");
-			}
-
-			if (!InitOpenGL())
-			{
-				Win32DebugConsolePrint("Failed to init GLEW!");
-			}
-			*/
-
 			return 0;
 		}
 

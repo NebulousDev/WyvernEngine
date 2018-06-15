@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{CE4423F3-2211-426B-BFC0-1A6D047EF36B}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>Core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -243,6 +243,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
   <ItemGroup>
     <ClInclude Include="graphics\mesh.h" />
     <ClInclude Include="graphics\primitives.h" />
+    <ClInclude Include="graphics\shader.h" />
     <ClInclude Include="loaders\objModelLoader.h" />
     <ClInclude Include="math\mathCommon.h" />
     <ClInclude Include="math\math.h" />

@@ -2,6 +2,7 @@
 #include "graphics\graphics.h"
 #include "graphics\primitives.h"
 #include "GLEW\GL\glew.h"
+#include "platform/platform.h"
 
 static GraphicsDevice gfxDevice;	//TODO: MOVE ME
 static GraphicsBuffer planeVBO;
@@ -9,13 +10,11 @@ static GraphicsBuffer planeIBO;
 
 void InitTestPlane()
 {
-	glewInit();	// Oh boy...
-
 	gfxDevice.CreateGraphicsBuffer(&planeVBO);
-	gfxDevice.PutGraphicsBuffer(VERTEX_BUFFER_DATA, planeVBO, (uint8*)sPlaneVertsIP3C3, sizeof(sPlaneVertsIP3C3));
+	gfxDevice.PutGraphicsBuffer(VERTEX_BUFFER_DATA, &planeVBO, (uint8*)sPlaneVertsIP3C3, sizeof(sPlaneVertsIP3C3));
 
 	gfxDevice.CreateGraphicsBuffer(&planeIBO);
-	gfxDevice.PutGraphicsBuffer(INDEX_BUFFER_DATA, planeIBO, (uint8*)sPlaneIdxsIP3C3, sizeof(sPlaneIdxsIP3C3));
+	gfxDevice.PutGraphicsBuffer(INDEX_BUFFER_DATA, &planeIBO, (uint8*)sPlaneIdxsIP3C3, sizeof(sPlaneIdxsIP3C3));
 }
 
 void DrawTestPlane()
