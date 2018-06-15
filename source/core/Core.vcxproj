@@ -241,6 +241,8 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="graphics\mesh.h" />
+    <ClInclude Include="graphics\primitives.h" />
     <ClInclude Include="loaders\objModelLoader.h" />
     <ClInclude Include="math\mathCommon.h" />
     <ClInclude Include="math\math.h" />

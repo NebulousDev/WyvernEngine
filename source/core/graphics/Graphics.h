@@ -15,10 +15,12 @@
 #define GFXAPI_TEMPLATE			template<uint8 GFXAPI>
 #define GFXAPI_TEMPLATE_DEF		template<>
 
-struct GFXStaticBuffer
+typedef uint32 GraphicsBuffer;
+
+enum GraphicsBufferType
 {
-	uint32 bufferID;
-	uint32 bufferSize;
+	VERTEX_BUFFER_DATA,
+	INDEX_BUFFER_DATA
 };
 
 class GraphicsDevice
@@ -26,8 +28,10 @@ class GraphicsDevice
 private:
 	void(*mClearBuffersFunc)();
 	void(*mSetClearColorFunc)(const float32 r, const float32 g, const float32 b);
-	RESULT(*mCreateGraphicsBuffer)(GFXStaticBuffer* buffer);
-	RESULT(*mPutGraphicsBuffer)(GFXStaticBuffer buffer, const uint8* data, const uint32 size);
+	RESULT(*mCreateGraphicsBuffer)(GraphicsBuffer* buffer);
+	RESULT(*mPutGraphicsBuffer)(const GraphicsBufferType type,
+		const GraphicsBuffer buffer, const uint8* data, const uint32 size);
+	void(*mDrawIndexedBuffers)(const GraphicsBuffer vbo, const GraphicsBuffer ibo);
 
 	bool mInitialized = false;
 
@@ -36,8 +40,12 @@ public:
 
 	INLINE void ClearBuffers() { mClearBuffersFunc(); }
 	INLINE void SetClearColor(const float32 r, const float32 g, const float32 b) { mSetClearColorFunc(r, g, b); }
-	INLINE RESULT CreateGraphicsBuffer(GFXStaticBuffer* buffer) { return mCreateGraphicsBuffer(buffer); };
-	INLINE RESULT PutGraphicsBuffer(GFXStaticBuffer buffer, const uint8* data, const uint32 size) { return mPutGraphicsBuffer(buffer, data, size); };
+	
+	INLINE RESULT CreateGraphicsBuffer(GraphicsBuffer* buffer) { return mCreateGraphicsBuffer(buffer); };
+	INLINE RESULT PutGraphicsBuffer(const GraphicsBufferType type, const GraphicsBuffer buffer,
+		const uint8* data, const uint32 size) { return mPutGraphicsBuffer(type, buffer, data, size); };
+
+	INLINE void DrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo) { mDrawIndexedBuffers(vbo, ibo); };
 
 	INLINE bool32 IsInitialized() { return mInitialized; }
 };

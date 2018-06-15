@@ -48,6 +48,12 @@
     <ClInclude Include="math\mathCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\primitives.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="memory\Memory.cpp">

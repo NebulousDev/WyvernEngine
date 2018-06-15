@@ -46,6 +46,7 @@ static fUpdateAndRender					sUpdateAndRenderFunc;
 INLINE RESULT Win32OpenGLCreateContext()
 {
 	GLCreateContext(&sGLContext, sDevice);
+	GLMakeContextCurrent(sDevice, sGLContext);
 
 	if (!sGLContext) return WYVERN_ERROR;
 
