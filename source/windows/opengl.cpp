@@ -1,18 +1,15 @@
 #include "opengl.h"
 
-#include <GLEW\GL\glew.h>
-#include <GLEW\GL\wglew.h>
-
 RESULT GLCreateContext(GraphicsContext* context, GraphicsDevice device)
 {
 	PIXELFORMATDESCRIPTOR pixelFormatDesc = {};
-	pixelFormatDesc.nSize = sizeof(pixelFormatDesc);
-	pixelFormatDesc.nVersion = 1;
-	pixelFormatDesc.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-	pixelFormatDesc.iPixelType = PFD_TYPE_RGBA;
-	pixelFormatDesc.cColorBits = PIXEL_COLOR_BITS;
-	pixelFormatDesc.cDepthBits = PIXEL_DEPTH_BITS;
-	pixelFormatDesc.iLayerType = PFD_MAIN_PLANE;
+	pixelFormatDesc.nSize		= sizeof(pixelFormatDesc);
+	pixelFormatDesc.nVersion	= 1;
+	pixelFormatDesc.dwFlags		= PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	pixelFormatDesc.iPixelType	= PFD_TYPE_RGBA;
+	pixelFormatDesc.cColorBits	= PIXEL_COLOR_BITS;
+	pixelFormatDesc.cDepthBits	= PIXEL_DEPTH_BITS;
+	pixelFormatDesc.iLayerType	= PFD_MAIN_PLANE;
 
 	uint32 winPixelFormat;
 	winPixelFormat = ChoosePixelFormat(device, &pixelFormatDesc);

@@ -4,17 +4,17 @@ extern LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 RESULT Runtime::CreateRuntime(Win32State* state, const char* dll)
 {
-	HMODULE runtime = LoadLibrary(dll);
+	mRuntime = LoadLibrary(dll);
 
-	if (!runtime)
+	if (!mRuntime)
 	{
 		MessageBox(state->window, "Error creating runtime.", "Error", MB_OK);
 		return WYVERN_ERROR;
 	}
 
-	fpCreate = (FuncTypeCreate)GetProcAddress(runtime, "Create");
-	fpUpdate = (FuncTypeUpdate)GetProcAddress(runtime, "Update");
-	fpDestroy = (FuncTypeDestroy)GetProcAddress(runtime, "Destroy");
+	fpCreate = (FuncTypeCreate)GetProcAddress(mRuntime, "Create");
+	fpUpdate = (FuncTypeUpdate)GetProcAddress(mRuntime, "Update");
+	fpDestroy = (FuncTypeDestroy)GetProcAddress(mRuntime, "Destroy");
 
 	if (!fpCreate || !fpUpdate || !fpDestroy)
 	{
@@ -22,6 +22,15 @@ RESULT Runtime::CreateRuntime(Win32State* state, const char* dll)
 		return WYVERN_ERROR;
 	}
 
+	return WYVERN_SUCCESS;
+}
+
+RESULT Runtime::DestroyRuntime()
+{
+	FreeLibrary(mRuntime);
+	fpCreate	= NULL;
+	fpUpdate	= NULL;
+	fpDestroy	= NULL;
 	return WYVERN_SUCCESS;
 }
 
@@ -48,8 +57,7 @@ RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* w
 
 	state->window = CreateWindowEx
 	(
-		0,
-		state->windClass.lpszClassName,
+		0, state->windClass.lpszClassName,
 		windInfo->windowTitle,
 		WS_OVERLAPPEDWINDOW,
 		windInfo->windowPosX, windInfo->windowPosY,

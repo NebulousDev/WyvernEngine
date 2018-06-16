@@ -3,17 +3,20 @@
 
 class Runtime
 {
-typedef RESULT(*FuncTypeCreate)();
-typedef void(*FuncTypeUpdate)();
-typedef void(*FuncTypeDestroy)();
-
 private:
+	typedef RESULT(*FuncTypeCreate)();
+	typedef void(*FuncTypeUpdate)();
+	typedef void(*FuncTypeDestroy)();
+
 	FuncTypeCreate	fpCreate;
 	FuncTypeUpdate	fpUpdate;
 	FuncTypeDestroy fpDestroy;
 
+	HMODULE mRuntime;
+
 public:
 	RESULT CreateRuntime(Win32State* state, const char* dll);
+	RESULT DestroyRuntime();
 
 	INLINE RESULT	Create() { return fpCreate(); }
 	INLINE void		Update() { fpUpdate(); }

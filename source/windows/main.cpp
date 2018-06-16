@@ -31,6 +31,7 @@ LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 			state->running = false;
 			PostQuitMessage(0);
 			runtime->Destroy();
+			runtime->DestroyRuntime();
 			return 0;
 		}
 

@@ -24,22 +24,22 @@ RESULT GLPutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer
 	switch (type)
 	{
 
-	case VERTEX_BUFFER_DATA:
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, buffer->bufferID);
-		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
-		break;
-	}
+		case VERTEX_BUFFER_DATA:
+		{
+			glBindBuffer(GL_ARRAY_BUFFER, buffer->bufferID);
+			glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+			break;
+		}
 
-	case INDEX_BUFFER_DATA:
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->bufferID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
-		break;
-	}
+		case INDEX_BUFFER_DATA:
+		{
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->bufferID);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+			break;
+		}
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	buffer->size = size;
@@ -69,11 +69,11 @@ GFXAPI_TEMPLATE_DEF RESULT Graphics::CreateGraphics<GFXAPI_OPENGL>()
 
 	glewInit(); // Is this the best place to init GLEW?
 
-	fpClearBuffers		= &GLClearBuffers;
-	fpSetClearColor		= &GLSetClearColor;
+	fpClearBuffers			= &GLClearBuffers;
+	fpSetClearColor			= &GLSetClearColor;
 	fpCreateGraphicsBuffer	= &GLCreateGraphicsBuffer;
 	fpPutGraphicsBuffer		= &GLPutGraphicsBuffer;
-	fpDrawIndexedBuffers		= &GLDrawIndexedBuffers;
+	fpDrawIndexedBuffers	= &GLDrawIndexedBuffers;
 
 	mInitialized = true;
 		
