@@ -1,7 +1,6 @@
 #include "common.h"
 #include "graphics\graphics.h"
 #include "graphics\primitives.h"
-#include "GLEW\GL\glew.h"
 #include "platform/platform.h"
 
 static Graphics			graphics;	//TODO: MOVE ME
