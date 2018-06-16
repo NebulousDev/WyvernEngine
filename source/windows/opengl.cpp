@@ -1,4 +1,4 @@
-#include "opengl.h"
+#include "context.h"
 
 RESULT GLCreateContext(GraphicsContext* context, GraphicsDevice device)
 {

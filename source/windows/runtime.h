@@ -1,5 +1,5 @@
 #pragma once
-#include "header.h"
+#include "common.h"
 
 class Runtime
 {
@@ -15,7 +15,7 @@ private:
 	HMODULE mRuntime;
 
 public:
-	RESULT CreateRuntime(Win32State* state, const char* dll);
+	RESULT CreateRuntime(const Win32State* state, const char* dll);
 	RESULT DestroyRuntime();
 
 	INLINE RESULT	Create() { return fpCreate(); }

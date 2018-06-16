@@ -254,6 +254,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     <ClInclude Include="common.h" />
     <ClInclude Include="graphics\graphics.h" />
     <ClInclude Include="platform\platform.h" />
+    <ClInclude Include="types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graphics\direct3D11\d3D11Graphics.cpp" />

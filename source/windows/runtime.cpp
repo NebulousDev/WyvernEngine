@@ -2,7 +2,7 @@
 
 extern LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-RESULT Runtime::CreateRuntime(Win32State* state, const char* dll)
+RESULT Runtime::CreateRuntime(const Win32State* state, const char* dll)
 {
 	mRuntime = LoadLibrary(dll);
 
