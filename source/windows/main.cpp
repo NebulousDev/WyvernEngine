@@ -2,8 +2,8 @@
 
 LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	static Win32State* state;
-	static Runtime* runtime;
+	static Win32State* state = {};
+	static Runtime* runtime = {};
 
 	switch (uMsg)
 	{

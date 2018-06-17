@@ -1,6 +1,6 @@
 #include "../graphics.h"
 #include "../../platform/platform.h"
-#include <GLEW/glew.h>
+#include <GLEW\glew.h>
 
 void GLClearBuffers()
 {

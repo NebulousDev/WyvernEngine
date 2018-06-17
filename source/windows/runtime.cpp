@@ -34,6 +34,10 @@ RESULT Runtime::DestroyRuntime()
 	return WYVERN_SUCCESS;
 }
 
+//TODO: I Don't like global variables
+static GraphicsContext*	sContext;
+static GraphicsDevice*	sDevice;
+
 //TODO: Tidy up RunApplication
 RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* windInfo)
 {
@@ -47,8 +51,6 @@ RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* w
 	state->windClass.lpszClassName = appInfo->appName;
 	state->windClass.hInstance = state->instance;
 	state->windClass.lpfnWndProc = &HandleEvents;
-
-	state->gfxDevice = GetDC(state->window);
 
 	if (!RegisterClass(&state->windClass))
 	{
@@ -79,19 +81,36 @@ RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* w
 	if (runtimeResult == WYVERN_ERROR)
 		return WYVERN_ERROR;
 
-	////
+	state->gfxDevice = GetDC(state->window);
+
+	////////////////////////////////////////////////////////////////////////////////////
 
 	PlatformApplication application = {};
 	application.mPlatformOS = OS_WINDOWS;
 
 	state->platformApp = &application;
 
+	sContext = &state->gfxContext;
+	sDevice = &state->gfxDevice;
+
+	typedef bool32(*FuncGLIsContextCreated)();
+	typedef RESULT(*FuncGLCreateContext)();
+	typedef RESULT(*FuncGLDestroyContext)();
+	typedef RESULT(*FuncGLEnableContext)();
+	typedef RESULT(*FuncGLDisableContext)();
+	typedef RESULT(*FuncGLSetContextCurrent)();
+
+	//TODO: This is clever... BUT REALLY BAD
+
 	PlatformGraphics graphics = {};
-	graphics.fpGLCreateContext = NULL;
+	graphics.fpGLIsContextCreated = (FuncGLIsContextCreated)([](void) { return *sContext != NULL; });
+	graphics.fpGLCreateContext = (FuncGLCreateContext)([](void) { return GLCreateContext(sContext, *sDevice); });
+	graphics.fpGLDestroyContext = (FuncGLDestroyContext)([](void) { return GLDeleteContext(sContext); });
+	graphics.fpGLSetContextCurrent = (FuncGLSetContextCurrent)([](void) { return GLMakeContextCurrent(*sDevice, *sContext); });
 
 	state->platformGfx = &graphics;
 
-	////
+	////////////////////////////////////////////////////////////////////////////////////
 
 	HandleEvents(state->window, STARTUP_STATE_MESSAGE, (WPARAM)state, (LPARAM)state);
 	HandleEvents(state->window, NEW_RUNTIME_MESSAGE, (WPARAM)&runtime, (LPARAM)&runtime);

@@ -14,7 +14,7 @@ typedef HGLRC	GraphicsContext;
 
 //TODO: Make color depth display dependent
 #define PIXEL_COLOR_BITS 32
-#define PIXEL_DEPTH_BITS 32
+#define PIXEL_DEPTH_BITS 24
 
 #define GFXAPI_OPENGL			0x1
 #define GFXAPI_VULKAN			0x2		// Not supported (yet)
@@ -31,6 +31,6 @@ EXPORT RESULT GLCreateContext(GraphicsContext* glContext, GraphicsDevice device)
 
 EXPORT RESULT GLMakeContextCurrent(GraphicsDevice device, GraphicsContext context);
 
-EXPORT RESULT GLDeleteContext(GraphicsContext context);
+EXPORT RESULT GLDeleteContext(GraphicsContext* context);
 
 #endif

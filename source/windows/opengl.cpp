@@ -3,7 +3,7 @@
 RESULT GLCreateContext(GraphicsContext* context, GraphicsDevice device)
 {
 	PIXELFORMATDESCRIPTOR pixelFormatDesc = {};
-	pixelFormatDesc.nSize		= sizeof(pixelFormatDesc);
+	pixelFormatDesc.nSize		= sizeof(PIXELFORMATDESCRIPTOR);
 	pixelFormatDesc.nVersion	= 1;
 	pixelFormatDesc.dwFlags		= PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
 	pixelFormatDesc.iPixelType	= PFD_TYPE_RGBA;
@@ -11,13 +11,14 @@ RESULT GLCreateContext(GraphicsContext* context, GraphicsDevice device)
 	pixelFormatDesc.cDepthBits	= PIXEL_DEPTH_BITS;
 	pixelFormatDesc.iLayerType	= PFD_MAIN_PLANE;
 
-	uint32 winPixelFormat;
-	winPixelFormat = ChoosePixelFormat(device, &pixelFormatDesc);
-	SetPixelFormat(device, winPixelFormat, &pixelFormatDesc);
+	int32 winPixelFormat = ChoosePixelFormat(device, &pixelFormatDesc);
+	BOOL res = SetPixelFormat(device, winPixelFormat, &pixelFormatDesc);
 
 	*context = wglCreateContext(device);
 
-	if (!context)
+	DWORD err = GetLastError();
+
+	if (!*context)
 	{
 		MessageBoxA(0, "Critical Error! Failed to create glContext!", "GL CONTEXT CREATION FAILED", 0);
 		return WYVERN_ERROR;
@@ -31,7 +32,9 @@ RESULT GLMakeContextCurrent(GraphicsDevice device, GraphicsContext context)
 	return wglMakeCurrent(device, context) ? WYVERN_SUCCESS : WYVERN_ERROR;
 }
 
-RESULT GLDeleteContext(GraphicsContext context)
+RESULT GLDeleteContext(GraphicsContext* context)
 {
-	return wglDeleteContext(context) ? WYVERN_SUCCESS : WYVERN_ERROR;
+	BOOL res = wglDeleteContext(*context);
+	*context = NULL;
+	return res ? WYVERN_SUCCESS : WYVERN_ERROR;
 }
