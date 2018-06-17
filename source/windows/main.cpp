@@ -16,13 +16,7 @@ LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		case NEW_RUNTIME_MESSAGE:
 		{
 			runtime = (Runtime*)wParam;
-			runtime->Create();
-			return 0;
-		}
-
-		case WM_CREATE:
-		{
-			state->gfxDevice = GetDC(state->window);
+			runtime->Create(state->platformApp, state->platformGfx);
 			return 0;
 		}
 

@@ -1,7 +1,5 @@
 #include "Memory.h"
 
-#include "../platform/platform.h"
-
 #include <malloc.h>
 
 StackAllocator::StackAllocator(const uint32 size)

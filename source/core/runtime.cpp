@@ -21,17 +21,15 @@ void DrawTestPlane()
 	graphics.DrawIndexedBuffers(planeVBO, planeIBO);
 }
 
-EXPORT RESULT Create()
+EXPORT RESULT Create(const PlatformApplication* app, const PlatformGraphics* gfx)
 {
-	/*
 	if (!graphics.IsInitialized())
 	{
-		graphics.CreateGraphics<GFXAPI_OPENGL>();
+		graphics.CreateGraphics<GFXAPI_OPENGL>(gfx);
 		graphics.SetClearColor(0.0f, 1.0f, 1.0f);
 
 		InitTestPlane();
 	}
-	*/
 
 	return WYVERN_SUCCESS;
 }

@@ -1,8 +1,8 @@
 #include <iostream>
-#include <core\platform\platform.h>
 
 int main(char** args)
 {
+	/*
 	ApplicationInfo info
 	{
 		"Sandbox",
@@ -12,6 +12,7 @@ int main(char** args)
 	//CreateApplication(info);
 
 	system("PAUSE");
+	*/
 
 	return 0;
 }

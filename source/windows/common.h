@@ -3,6 +3,7 @@
 #include "header.h"
 #include "context.h"
 #include "types.h"
+#include "platform.h"
 
 #define CORE_DLL_NAME			"wyverncore.dll"
 
@@ -40,4 +41,8 @@ struct Win32State
 	PWSTR			arguments;
 	uint32			show;
 	bool32			running;
+
+	//TODO: Should app and gfx be in the win32state?
+	PlatformApplication*	platformApp;
+	PlatformGraphics*		platformGfx;
 };

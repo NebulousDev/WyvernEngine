@@ -1,5 +1,5 @@
 #pragma once
-#include "../types.h"
+#include "types.h"
 
 #define GFXAPI_OPENGL_ENABLED
 #define GFXAPI_D3D9_ENABLED

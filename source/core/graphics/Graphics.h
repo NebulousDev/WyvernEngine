@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../common.h"
+#include "../platform/platform.h"
 
 #define GFXAPI_OPENGL			0x1
 #define GFXAPI_VULKAN			0x2		// Not supported (yet)
@@ -27,9 +28,13 @@ enum GraphicsBufferType
 	INDEX_BUFFER_DATA
 };
 
+// TODO: Possible remake graphics to use GraphicsCreationInfo struct
+
 class Graphics
 {
 private:
+	const PlatformGraphics* platformGFX;
+
 	void	(*fpClearBuffers)();
 	void	(*fpSetClearColor)(const float32 r, const float32 g, const float32 b);
 	RESULT	(*fpCreateGraphicsBuffer)(GraphicsBuffer* buffer);
@@ -40,7 +45,7 @@ private:
 	bool	mInitialized = false;
 
 public:
-	GFXAPI_TEMPLATE RESULT CreateGraphics();
+	GFXAPI_TEMPLATE RESULT CreateGraphics(const PlatformGraphics* graphics);
 	GFXAPI_TEMPLATE RESULT DestroyGraphics();
 
 	INLINE void		ClearBuffers() { fpClearBuffers(); }

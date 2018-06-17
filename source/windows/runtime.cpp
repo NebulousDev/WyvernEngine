@@ -34,6 +34,7 @@ RESULT Runtime::DestroyRuntime()
 	return WYVERN_SUCCESS;
 }
 
+//TODO: Tidy up RunApplication
 RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* windInfo)
 {
 	/*
@@ -47,7 +48,7 @@ RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* w
 	state->windClass.hInstance = state->instance;
 	state->windClass.lpfnWndProc = &HandleEvents;
 
-	HandleEvents(state->window, STARTUP_STATE_MESSAGE, (WPARAM)&state, NULL);
+	state->gfxDevice = GetDC(state->window);
 
 	if (!RegisterClass(&state->windClass))
 	{
@@ -78,7 +79,22 @@ RESULT RunApplication(Win32State* state, ApplicationInfo* appInfo, WindowInfo* w
 	if (runtimeResult == WYVERN_ERROR)
 		return WYVERN_ERROR;
 
-	HandleEvents(state->window, NEW_RUNTIME_MESSAGE, (WPARAM)&runtime, NULL);
+	////
+
+	PlatformApplication application = {};
+	application.mPlatformOS = OS_WINDOWS;
+
+	state->platformApp = &application;
+
+	PlatformGraphics graphics = {};
+	graphics.fpGLCreateContext = NULL;
+
+	state->platformGfx = &graphics;
+
+	////
+
+	HandleEvents(state->window, STARTUP_STATE_MESSAGE, (WPARAM)state, (LPARAM)state);
+	HandleEvents(state->window, NEW_RUNTIME_MESSAGE, (WPARAM)&runtime, (LPARAM)&runtime);
 
 	ShowWindow(state->window, state->show);
 

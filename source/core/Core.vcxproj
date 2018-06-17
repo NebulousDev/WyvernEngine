@@ -123,7 +123,10 @@
 cd $(TargetDir)
 del $(TargetName).lib
 del $(TargetName).exp
-copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
+copy "$(TargetName).dll" "$(SolutionDir)bin"
+cd $(SolutionDir)settings
+copy "engine.ini" "$(SolutionDir)bin"
+copy "window.ini" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,7 +158,10 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
 cd $(TargetDir)
 del $(TargetName).lib
 del $(TargetName).exp
-copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
+copy "$(TargetName).dll" "$(SolutionDir)bin"
+cd $(SolutionDir)settings
+copy "engine.ini" "$(SolutionDir)bin"
+copy "window.ini" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -193,10 +199,14 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
     <PostBuildEvent>
-      <Command>cd $(TargetDir)
+      <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
+cd $(TargetDir)
 del $(TargetName).lib
 del $(TargetName).exp
-copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
+copy "$(TargetName).dll" "$(SolutionDir)bin"
+cd $(SolutionDir)settings
+copy "engine.ini" "$(SolutionDir)bin"
+copy "window.ini" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -234,10 +244,14 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
     </Lib>
     <PostBuildEvent>
-      <Command>cd $(TargetDir)
+      <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
+cd $(TargetDir)
 del $(TargetName).lib
 del $(TargetName).exp
-copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
+copy "$(TargetName).dll" "$(SolutionDir)bin"
+cd $(SolutionDir)settings
+copy "engine.ini" "$(SolutionDir)bin"
+copy "window.ini" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -253,6 +267,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     <ClInclude Include="memory\memory.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="graphics\graphics.h" />
+    <ClInclude Include="platform\application.h" />
     <ClInclude Include="platform\platform.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>
@@ -260,9 +275,9 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     <ClCompile Include="graphics\direct3D11\d3D11Graphics.cpp" />
     <ClCompile Include="graphics\opengl\glGraphics.cpp" />
     <ClCompile Include="loaders\objModelLoader.cpp" />
+    <ClCompile Include="platform\application.cpp" />
     <ClCompile Include="runtime.cpp" />
     <ClCompile Include="memory\memory.cpp" />
-    <ClCompile Include="platform\platform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

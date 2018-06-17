@@ -59,13 +59,14 @@ void GLDrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-GFXAPI_TEMPLATE_DEF RESULT Graphics::CreateGraphics<GFXAPI_OPENGL>()
+GFXAPI_TEMPLATE_DEF RESULT Graphics::CreateGraphics<GFXAPI_OPENGL>(const PlatformGraphics* graphics)
 {
 	//TODO: Destroy previous context
 
-	//TODO: Rename these with Platform prefix:
-	if (OpenGLCreateContext() == WYVERN_ERROR) return WYVERN_ERROR;
-	if (OpenGLMakeContextCurrent() == WYVERN_ERROR) return WYVERN_ERROR;
+	platformGFX = graphics;
+
+	if (graphics->fpGLCreateContext() == WYVERN_ERROR) return WYVERN_ERROR;
+	if (graphics->fpGLSetContextCurrent() == WYVERN_ERROR) return WYVERN_ERROR;
 
 	glewInit(); // Is this the best place to init GLEW?
 

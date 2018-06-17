@@ -153,7 +153,8 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
       </IgnoreAllDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>cd $(TargetDir)
+      <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
+cd "$(TargetDir)"
 copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -179,7 +180,8 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
       </IgnoreAllDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>cd $(TargetDir)
+      <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
+cd "$(TargetDir)"
 copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -192,6 +194,7 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     <ClInclude Include="common.h" />
     <ClInclude Include="context.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="platform.h" />
     <ClInclude Include="runtime.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>
