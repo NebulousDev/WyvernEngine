@@ -36,12 +36,11 @@ EXPORT RESULT Create(const PlatformApplication* app, const PlatformGraphics* gfx
 
 EXPORT void Update()
 {
-	//graphics.ClearBuffers();
-	//DrawTestPlane();
+	graphics.ClearBuffers();
+	DrawTestPlane();
 }
-
 
 EXPORT void Destroy()
 {
-	//graphics.DestroyGraphics<GFXAPI_OPENGL>();
+	graphics.DestroyGraphics<GFXAPI_OPENGL>();
 }

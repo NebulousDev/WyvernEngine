@@ -2,10 +2,6 @@
 
 struct Shader
 {
-
-};
-
-struct ShaderProgram
-{
-
+	const char* name;
+	const char* file;
 };
