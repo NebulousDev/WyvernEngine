@@ -38,3 +38,5 @@ typedef unsigned __int64		uint64;
 typedef float					float32;
 
 #endif
+
+#include "string.h"

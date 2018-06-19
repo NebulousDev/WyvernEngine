@@ -24,8 +24,10 @@ struct GraphicsBuffer
 
 enum GraphicsBufferType
 {
-	VERTEX_BUFFER_DATA,
-	INDEX_BUFFER_DATA
+	GENERIC_BUFFER,
+	VERTEX_BUFFER,
+	INDEX_BUFFER,
+	UNIFORM_BUFFER
 };
 
 // TODO: Possible remake graphics to use GraphicsCreationInfo struct

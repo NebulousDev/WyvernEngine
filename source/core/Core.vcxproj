@@ -256,7 +256,10 @@ copy "window.ini" "$(SolutionDir)bin"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="graphics\mesh.h" />
+    <ClInclude Include="assert.h" />
+    <ClInclude Include="graphics\opengl\glUtils.h" />
     <ClInclude Include="graphics\opengl\glShader.h" />
+    <ClInclude Include="string.h" />
     <ClInclude Include="graphics\primitives.h" />
     <ClInclude Include="graphics\shader.h" />
     <ClInclude Include="loaders\objModelLoader.h" />

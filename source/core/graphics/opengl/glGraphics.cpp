@@ -1,21 +1,21 @@
 #include "../graphics.h"
 #include "../../platform/platform.h"
-#include <GLEW\glew.h>
+#include "glUtils.h"
 
 void GLClearBuffers()
 {
 	//TODO: Fix clear inputs
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // | GL_STENCIL_BUFFER_BIT);
+	GL_CHECK(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);) // | GL_STENCIL_BUFFER_BIT);
 }
 
 void GLSetClearColor(const float32 r, const float32 g, const float32 b)
 {
-	glClearColor(r, g, b, 1.0f);
+	GL_CHECK(glClearColor(r, g, b, 1.0f);)
 }
 
 RESULT GLCreateGraphicsBuffer(GraphicsBuffer* buffer)
 {
-	glGenBuffers(1, &buffer->bufferID);
+	GL_CHECK(glGenBuffers(1, &buffer->bufferID);)
 	return WYVERN_SUCCESS;
 }
 
@@ -23,18 +23,17 @@ RESULT GLPutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer
 {
 	switch (type)
 	{
-
-		case VERTEX_BUFFER_DATA:
+		case VERTEX_BUFFER:
 		{
-			glBindBuffer(GL_ARRAY_BUFFER, buffer->bufferID);
-			glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+			GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, buffer->bufferID);)
+			GL_CHECK(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);)
 			break;
 		}
 
-		case INDEX_BUFFER_DATA:
+		case INDEX_BUFFER:
 		{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->bufferID);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+			GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->bufferID);)
+			GL_CHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);)
 			break;
 		}
 
@@ -49,14 +48,14 @@ RESULT GLPutGraphicsBuffer(const GraphicsBufferType type, GraphicsBuffer* buffer
 
 void GLDrawIndexedBuffers(const GraphicsBuffer vbo, const GraphicsBuffer ibo)
 {
-	glBindBuffer(GL_ARRAY_BUFFER, vbo.bufferID);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo.bufferID);
+	GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vbo.bufferID);)
+	GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo.bufferID);)
 
-	glDrawElements(GL_TRIANGLE_STRIP, ibo.size, GL_UNSIGNED_INT, NULL);
+	GL_CHECK(glDrawElements(GL_TRIANGLE_STRIP, ibo.size, GL_UNSIGNED_INT, NULL);)
 
 	//TODO: Dont unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, 0);)
+	GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);)
 }
 
 GFXAPI_TEMPLATE_DEF RESULT Graphics::CreateGraphics<GFXAPI_OPENGL>(const PlatformGraphics* graphics)
