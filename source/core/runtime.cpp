@@ -10,10 +10,10 @@ static GraphicsBuffer	planeIBO;
 void InitTestPlane()
 {
 	graphics.CreateGraphicsBuffer(&planeVBO);
-	graphics.PutGraphicsBuffer(VERTEX_BUFFER_DATA, &planeVBO, (uint8*)sPlaneVertsIP3C3, sizeof(sPlaneVertsIP3C3));
+	graphics.PutGraphicsBuffer(VERTEX_BUFFER, &planeVBO, (uint8*)sPlaneVertsIP3C3, sizeof(sPlaneVertsIP3C3));
 
 	graphics.CreateGraphicsBuffer(&planeIBO);
-	graphics.PutGraphicsBuffer(INDEX_BUFFER_DATA, &planeIBO, (uint8*)sPlaneIdxsIP3C3, sizeof(sPlaneIdxsIP3C3));
+	graphics.PutGraphicsBuffer(INDEX_BUFFER, &planeIBO, (uint8*)sPlaneIdxsIP3C3, sizeof(sPlaneIdxsIP3C3));
 }
 
 void DrawTestPlane()
