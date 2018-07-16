@@ -1,4 +1,5 @@
 #pragma once
+#include "Runtime.h"
 
 #define RESULT uint8
 
@@ -36,7 +37,31 @@ struct Application
 
 };
 
+class Window
+{
+private:
+	const char*		mTitle;
+	uint32			mWidth;
+	uint32			mHeight;
+	uint32			mPosX;
+	uint32			mPosY;
+
+public:
+};
+
+struct WindowInfo
+{
+	const char*		title;
+	uint32			width;
+	uint32			height;
+	uint32			posX;
+	uint32			posY;
+};
+
+typedef Window*(*CreateWindowFunc)(const WindowInfo info);
+typedef Runtime*(CreateRuntimeFunc)(const char* dllname);
+
 struct Platform
 {
-
+	CreateWindowFunc fpCreateWindow;
 };

@@ -23,13 +23,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Runtime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="platform.h">
+    <ClInclude Include="Runtime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

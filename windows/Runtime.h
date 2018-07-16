@@ -6,19 +6,19 @@ typedef RESULT(*CreateFunc)(ApplicationInfo* info);
 typedef RESULT(*StartFunc)(const Application* app, const Platform* platform);
 typedef RESULT(*LoopFunc)(const Application* app);
 
-class Runtime
+class CoreRuntime : Runtime
 {
 private:
 
-	HMODULE		instance;
+	HMODULE		mInstance;
 	CreateFunc	fpCreate;
 	StartFunc	fpStart;
 	LoopFunc	fpLoop;
 
-	Runtime()	{}
+	CoreRuntime()	{}
 
-	friend Runtime* CreateRuntime(const char* dll);
-	friend void		DestroyRuntime(Runtime* runtime);
+	friend CoreRuntime* CreateRuntime(const char* dll);
+	friend void			DestroyRuntime(CoreRuntime* runtime);
 
 public:
 
