@@ -8,6 +8,11 @@ void InitPlaform(const Platform* platform)
 	sPlatform = platform;
 }
 
+const Platform* GetPlatform()
+{
+	return sPlatform;
+}
+
 const PlatformInfo GetPlatformInfo()
 {
 	return sPlatform->platformInfo;

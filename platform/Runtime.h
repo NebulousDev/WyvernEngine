@@ -8,7 +8,7 @@ public:
 	typedef void*(*GetFunctionFunc)(Runtime* runtime, const char* func);
 
 protected:
-	void*				mInstance;
+	WYVPTRHANDLE		mInstance;
 	GetFunctionFunc		fpGetFunction;
 
 	Runtime() {}

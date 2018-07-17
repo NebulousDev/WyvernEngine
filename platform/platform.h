@@ -13,31 +13,17 @@ struct Application
 
 };
 
-class Window
-{
-private:
-	const char*		mTitle;
-	uint32			mWidth;
-	uint32			mHeight;
-	uint32			mPosX;
-	uint32			mPosY;
-
-public:
-};
-
-struct WindowInfo
-{
-	const char*		title;
-	uint32			width;
-	uint32			height;
-	uint32			posX;
-	uint32			posY;
-};
-
+struct Window;
+struct WindowInfo;
 class Runtime;
 class CoreRuntime;
 
-typedef Window*			(*CreateWindowFunc)(const WindowInfo info);
+typedef RESULT			(*CreateWindowFunc)(Window* window, const WindowInfo info);
+typedef RESULT			(*FreeWindowFunc)(Window* window);
+typedef RESULT			(*SetWindowSizeFunc)(Window* window, uint32 width, uint32 height);
+typedef RESULT			(*ShowWindowFunc)(Window* window);
+typedef RESULT			(*HideWindowFunc)(Window* window);
+
 typedef Runtime*		(*CreateRuntimeFunc)(const char* dllname);
 typedef CoreRuntime*	(*CreateCoreRuntimeFunc)(const char* dllname);
 typedef	void			(*FreeRuntimeFunc)(Runtime* runtime);
@@ -52,14 +38,23 @@ struct PlatformInfo
 struct Platform
 {
 	PlatformInfo			platformInfo;
+
 	CreateWindowFunc		fpCreateWindow;
+	FreeWindowFunc			fpFreeWindow;
+	SetWindowSizeFunc		fpSetWindowSize;
+	ShowWindowFunc			fpShowWindow;
+	HideWindowFunc			fpHideWindow;
+
 	CreateRuntimeFunc		fpCreateRuntime;
 	CreateCoreRuntimeFunc	fpCreateCoreRuntime;
 	FreeRuntimeFunc			fpFreeRuntime;
 };
 
 void				InitPlaform(const Platform* platform);
+const Platform*		GetPlatform();
 const PlatformInfo	GetPlatformInfo();
+
+///////////////////////////////////////////////////////////////
 
 Runtime*			CreateRuntime(const char* dll);
 CoreRuntime*		CreateCoreRuntime(const char* dll);

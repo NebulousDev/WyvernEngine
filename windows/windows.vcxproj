@@ -175,12 +175,18 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="win32Platform.cpp" />
     <ClCompile Include="win32Runtime.cpp" />
-    <ClCompile Include="startup.cpp" />
+    <ClCompile Include="win32startup.cpp" />
+    <ClCompile Include="win32State.cpp" />
+    <ClCompile Include="win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="win32Platform.h" />
     <ClInclude Include="win32Runtime.h" />
     <ClInclude Include="win32.h" />
+    <ClInclude Include="win32State.h" />
+    <ClInclude Include="win32Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

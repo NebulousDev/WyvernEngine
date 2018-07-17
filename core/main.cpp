@@ -1,5 +1,6 @@
 #include "common.h"
 #include "platform.h"
+#include "window.h"
 #include <iostream>
 
 EXPORT void Create(ApplicationInfo* info)
@@ -17,9 +18,20 @@ EXPORT void Start(const Application* app, const Platform* platform)
 
 	std::cout << info.platformName << std::endl;
 	std::cout << info.platformVersion << std::endl;
+
+	WindowInfo windInfo = {};
+	windInfo.title		= "WyvernGame";
+	windInfo.width		= 1280;
+	windInfo.height		= 720;
+	windInfo.posX		= 20;
+	windInfo.posY		= 20;
+	windInfo.flags		= 0;
+
+	WindowHandle wind = CreateWindow(windInfo);
+	RESULT show = ShowWindow(wind);
 }
 
 EXPORT void Loop(const Application* app)
 {
-
+	
 }

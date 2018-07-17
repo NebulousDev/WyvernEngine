@@ -14,3 +14,14 @@ typedef float					f32;
 typedef double					d64;
 
 typedef uint8					bool8;
+
+typedef uint32*					ptr32;
+typedef uint64*					ptr64;
+
+#define WYVHANDLE				int32
+#define WYVPTRHANDLE			ptr32
+
+#ifdef COMPILE_64
+#define HANDLE					uint64;
+#define PTRHANDLE				ptr64
+#endif // COMPILE_64

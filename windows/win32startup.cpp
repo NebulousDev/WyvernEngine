@@ -1,24 +1,13 @@
 #include <iostream>
-#include "common.h"
-#include "platform.h"
+#include "win32Platform.h"
 #include "win32Runtime.h"
+#include "win32State.h"
 #include "win32.h"
 
 #define CORE_DLL_NAME "wyverncore.dll"
 
 #define SET_STATE_MESSAGE		(WM_USER + 1)
 #define SET_RUNTIME_MESSAGE		(WM_USER + 2)
-
-struct Win32State
-{
-	HINSTANCE			instance;
-	LPTSTR				arguments;
-	WNDCLASS			wndClass;
-	CoreRuntime*		runtime;
-	ApplicationInfo		appInfo;
-	Application			app;
-	bool8				running;
-};
 
 LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -122,7 +111,6 @@ RESULT StartApplication(Win32State* state, Platform* platform)
 			GetMessage(&msg, NULL, 0, 0);
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			std::cout << "dispatch" << std::endl;
 		}
 
 		state->runtime->Loop(&state->app);
@@ -142,10 +130,7 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 	platformInfo.platformVersion	= "Windows 10 Pro";
 
 	Platform platform;
-	platform.platformInfo			= platformInfo;
-	platform.fpCreateRuntime		= Win32CreateRuntime;
-	platform.fpCreateCoreRuntime	= Win32CreateCoreRuntime;
-	platform.fpFreeRuntime			= Win32FreeRuntime;
+	Win32SetupPlatform(&platform, platformInfo);
 	
 	Win32State state;
 	state.instance	= instance;
@@ -155,6 +140,8 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 	state.appInfo	= {};
 	state.app		= {};
 	state.running	= false;
+
+	InitWin32State(&state);
 
 	RESULT result = SUCCESS;
 
