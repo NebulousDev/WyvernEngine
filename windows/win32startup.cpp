@@ -4,7 +4,7 @@
 #include "win32State.h"
 #include "win32.h"
 
-#define CORE_DLL_NAME "wyverncore.dll"
+#define CORE_DLL_NAME "wyvernengine.dll"
 
 #define SET_STATE_MESSAGE		(WM_USER + 1)
 #define SET_RUNTIME_MESSAGE		(WM_USER + 2)
@@ -56,7 +56,9 @@ RESULT SetupApplication(Win32State* state)
 
 	if (!state->runtime)
 	{
-		MessageBox(0, "Error: Failed to create core runtime. Is wyverncore.dll missing?", "Error", MB_OK);
+		char buffer[512];
+		sprintf(buffer, "Error: Failed to create core runtime. Is %s missing?", CORE_DLL_NAME);
+		MessageBox(0, buffer, "Error", MB_OK);
 		return FAILURE;
 	}
 

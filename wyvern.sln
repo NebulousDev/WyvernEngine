@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "core\core.vcxproj", "{3CCC9A6E-4315-427F-A2A0-BC5427FDA33E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "engine", "engine\engine.vcxproj", "{3CCC9A6E-4315-427F-A2A0-BC5427FDA33E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AEA3B215-3CF2-47C6-B959-E13B9A3DADE0} = {AEA3B215-3CF2-47C6-B959-E13B9A3DADE0}
 	EndProjectSection
@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "windows", "windows\windows.
 		{AEA3B215-3CF2-47C6-B959-E13B9A3DADE0} = {AEA3B215-3CF2-47C6-B959-E13B9A3DADE0}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "platform", "platform\platform.vcxproj", "{AEA3B215-3CF2-47C6-B959-E13B9A3DADE0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "core\core.vcxproj", "{AEA3B215-3CF2-47C6-B959-E13B9A3DADE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

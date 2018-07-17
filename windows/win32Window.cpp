@@ -27,12 +27,12 @@ RESULT Win32CreateWindow(Window* window, const WindowInfo info)
 
 	if (info.flags & WINDOW_FULLSCREEN)
 	{
-		// Center window
+		// fullscreen window
 	}
 
 	if (info.flags & WINDOW_BORDERLESS)
 	{
-		// Center window
+		// borderless window
 	}
 
 	HWND winHandle = CreateWindow
