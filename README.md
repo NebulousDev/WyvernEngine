@@ -1,6 +1,6 @@
 # WyvernEngine
 
-[![](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+[![Build status](https://ci.appveyor.com/api/projects/status/4ylftugcf8tkay3e/branch/master?svg=true)](https://ci.appveyor.com/project/NebulousDev/wyvernengine/branch/master)
 
 Wyvern Engine is a 2D and 3D game engine developed in C/C++
 
@@ -12,8 +12,10 @@ Wyvern Engine is a 2D and 3D game engine developed in C/C++
 - Render APIs
     - OpenGL
 - Hot-loadable DLLs
+- Platform Independant DLL Loading (runtime)
 - Separated Platform - Engine code
 - Separated Engine - Game code
+- Multiple Windows
 
 **Planned:**
 - Platforms
