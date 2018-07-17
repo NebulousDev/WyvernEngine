@@ -1,5 +1,5 @@
 #pragma once
-#include "runtime.h"
+#include <platform\runtime.h>
 
 class Win32Runtime : public Runtime
 {

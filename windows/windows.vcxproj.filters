@@ -27,7 +27,7 @@
     <ClCompile Include="win32Platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32startup.cpp">
+    <ClCompile Include="win32Startup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

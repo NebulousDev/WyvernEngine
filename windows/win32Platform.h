@@ -1,4 +1,4 @@
 #pragma once
-#include "platform.h"
+#include <platform\platform.h>
 
 void Win32SetupPlatform(Platform* platform, PlatformInfo info);

@@ -177,7 +177,7 @@ copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
   <ItemGroup>
     <ClCompile Include="win32Platform.cpp" />
     <ClCompile Include="win32Runtime.cpp" />
-    <ClCompile Include="win32startup.cpp" />
+    <ClCompile Include="win32Startup.cpp" />
     <ClCompile Include="win32State.cpp" />
     <ClCompile Include="win32Window.cpp" />
   </ItemGroup>

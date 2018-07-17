@@ -1,6 +1,5 @@
-#include "common.h"
-#include "platform.h"
-#include "window.h"
+#include <platform\platform.h>
+#include <platform\window.h>
 #include <iostream>
 
 EXPORT void Create(ApplicationInfo* info)

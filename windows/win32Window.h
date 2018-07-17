@@ -1,6 +1,5 @@
 #pragma once
-#include "common.h"
-#include "window.h"
+#include <platform\window.h>
 
 RESULT Win32CreateWindow(Window* window, const WindowInfo info);
 

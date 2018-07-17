@@ -1,6 +1,6 @@
 #pragma once
+#include <platform\platform.h>
 #include "win32.h"
-#include "platform.h"
 
 struct Win32State
 {

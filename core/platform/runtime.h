@@ -1,6 +1,5 @@
 #pragma once
 #include "platform.h"
-#include "common.h"
 
 class Runtime
 {
