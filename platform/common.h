@@ -7,3 +7,12 @@
 #define KILOBYTES(size)		1000 * size
 #define MEGABYTES(size)		1000 * KILOBYTES(size)
 #define GIGABYTES(size)		1000 * MEGABYTES(size)
+
+#define RESULT uint8
+
+#define SUCCESS 0x1
+#define FAILURE 0x0
+
+#define NULLPTR nullptr
+
+#define INLINE	__inline

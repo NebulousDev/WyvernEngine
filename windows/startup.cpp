@@ -1,7 +1,8 @@
 #include <iostream>
-#include "win32.h"
+#include "common.h"
 #include "platform.h"
-#include "Runtime.h"
+#include "win32Runtime.h"
+#include "win32.h"
 
 #define CORE_DLL_NAME "wyverncore.dll"
 
@@ -13,7 +14,7 @@ struct Win32State
 	HINSTANCE			instance;
 	LPTSTR				arguments;
 	WNDCLASS			wndClass;
-	Runtime*			runtime;
+	CoreRuntime*		runtime;
 	ApplicationInfo		appInfo;
 	Application			app;
 	bool8				running;
@@ -62,7 +63,7 @@ RESULT SetupPlatform(Platform* platform)
 
 RESULT SetupApplication(Win32State* state)
 {
-	state->runtime = CreateRuntime(CORE_DLL_NAME);
+	state->runtime = Win32CreateCoreRuntime(CORE_DLL_NAME);
 
 	if (!state->runtime)
 	{
@@ -102,8 +103,8 @@ RESULT CreateApplication(Win32State* state)
 		return FAILURE;
 	}
 
-	HandleEvents(0, SET_STATE_MESSAGE, (WPARAM)state, NULLPTR);
-	HandleEvents(0, SET_RUNTIME_MESSAGE, (WPARAM)state->runtime, NULLPTR);
+	HandleEvents(0, SET_STATE_MESSAGE, (WPARAM)state, 0);
+	HandleEvents(0, SET_RUNTIME_MESSAGE, (WPARAM)state->runtime, 0);
 
 	return SUCCESS;
 }
@@ -136,7 +137,15 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 	AttachConsole(GetCurrentProcessId());
 	freopen("CON", "w", stdout);
 
+	PlatformInfo platformInfo;
+	platformInfo.platformName		= "Windows";
+	platformInfo.platformVersion	= "Windows 10 Pro";
+
 	Platform platform;
+	platform.platformInfo			= platformInfo;
+	platform.fpCreateRuntime		= Win32CreateRuntime;
+	platform.fpCreateCoreRuntime	= Win32CreateCoreRuntime;
+	platform.fpFreeRuntime			= Win32FreeRuntime;
 	
 	Win32State state;
 	state.instance	= instance;
@@ -149,7 +158,6 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 
 	RESULT result = SUCCESS;
 
-	result = SetupPlatform(&platform);
 	result = SetupApplication(&state);
 
 	if (!result)
@@ -167,7 +175,7 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 
 	system("PAUSE");
 
-	DestroyRuntime(state.runtime);
+	Win32FreeRuntime(state.runtime);
 
 	FreeConsole();
 

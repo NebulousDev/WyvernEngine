@@ -1,29 +1,5 @@
 #pragma once
-#include "Runtime.h"
-
-#define RESULT uint8
-
-#define SUCCESS 0x1
-#define FAILURE 0x0
-
-#define NULLPTR 0
-
-#define INLINE	__forceinline
-
-typedef __int8					int8;
-typedef __int16					int16;
-typedef __int32					int32;
-typedef __int64					int64;
-
-typedef unsigned __int8			uint8;
-typedef unsigned __int16		uint16;
-typedef unsigned __int32		uint32;
-typedef unsigned __int64		uint64;
-
-typedef float					f32;
-typedef double					d64;
-
-typedef uint8					bool8;
+#include "common.h"
 
 struct ApplicationInfo
 {
@@ -58,10 +34,33 @@ struct WindowInfo
 	uint32			posY;
 };
 
-typedef Window*(*CreateWindowFunc)(const WindowInfo info);
-typedef Runtime*(CreateRuntimeFunc)(const char* dllname);
+class Runtime;
+class CoreRuntime;
+
+typedef Window*			(*CreateWindowFunc)(const WindowInfo info);
+typedef Runtime*		(*CreateRuntimeFunc)(const char* dllname);
+typedef CoreRuntime*	(*CreateCoreRuntimeFunc)(const char* dllname);
+typedef	void			(*FreeRuntimeFunc)(Runtime* runtime);
+
+struct PlatformInfo
+{
+	const char* platformName;
+	const char* platformVersion;
+	// Add more fancy platform info
+};
 
 struct Platform
 {
-	CreateWindowFunc fpCreateWindow;
+	PlatformInfo			platformInfo;
+	CreateWindowFunc		fpCreateWindow;
+	CreateRuntimeFunc		fpCreateRuntime;
+	CreateCoreRuntimeFunc	fpCreateCoreRuntime;
+	FreeRuntimeFunc			fpFreeRuntime;
 };
+
+void				InitPlaform(const Platform* platform);
+const PlatformInfo	GetPlatformInfo();
+
+Runtime*			CreateRuntime(const char* dll);
+CoreRuntime*		CreateCoreRuntime(const char* dll);
+void				FreeRuntime(Runtime* runtime);
