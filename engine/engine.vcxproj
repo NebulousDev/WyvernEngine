@@ -109,7 +109,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wyverncore.lib</AdditionalDependencies>
+      <AdditionalDependencies>wyverncore.lib;dxgi.lib;d3d11.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,7 +127,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wyverncore.lib</AdditionalDependencies>
+      <AdditionalDependencies>wyverncore.lib;dxgi.lib;d3d11.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wyverncore.lib</AdditionalDependencies>
+      <AdditionalDependencies>wyverncore.lib;dxgi.lib;d3d11.lib;</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
@@ -166,7 +166,7 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wyverncore.lib</AdditionalDependencies>
+      <AdditionalDependencies>wyverncore.lib;dxgi.lib;d3d11.lib;</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
@@ -175,7 +175,12 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="graphics\d3d11\d3d11Context.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="graphics\d3d11\d3d11Context.h" />
+    <ClInclude Include="graphics\opengl3\openglContext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

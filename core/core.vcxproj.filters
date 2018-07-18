@@ -30,6 +30,9 @@
     <ClInclude Include="platform\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="platform\platform.cpp">

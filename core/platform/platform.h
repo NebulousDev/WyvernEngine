@@ -18,16 +18,6 @@ struct WindowInfo;
 class Runtime;
 class CoreRuntime;
 
-typedef RESULT			(*CreateWindowFunc)(Window* window, const WindowInfo info);
-typedef RESULT			(*FreeWindowFunc)(Window* window);
-typedef RESULT			(*SetWindowSizeFunc)(Window* window, uint32 width, uint32 height);
-typedef RESULT			(*ShowWindowFunc)(Window* window);
-typedef RESULT			(*HideWindowFunc)(Window* window);
-
-typedef Runtime*		(*CreateRuntimeFunc)(const char* dllname);
-typedef CoreRuntime*	(*CreateCoreRuntimeFunc)(const char* dllname);
-typedef	void			(*FreeRuntimeFunc)(Runtime* runtime);
-
 struct PlatformInfo
 {
 	const char* platformName;
@@ -37,6 +27,16 @@ struct PlatformInfo
 
 struct Platform
 {
+	typedef RESULT			(*CreateWindowFunc)(Window* window, const WindowInfo info);
+	typedef RESULT			(*FreeWindowFunc)(Window* window);
+	typedef RESULT			(*SetWindowSizeFunc)(Window* window, uint32 width, uint32 height);
+	typedef RESULT			(*ShowWindowFunc)(Window* window);
+	typedef RESULT			(*HideWindowFunc)(Window* window);
+
+	typedef Runtime*		(*CreateRuntimeFunc)(const char* dllname);
+	typedef CoreRuntime*	(*CreateCoreRuntimeFunc)(const char* dllname);
+	typedef	void			(*FreeRuntimeFunc)(Runtime* runtime);
+
 	PlatformInfo			platformInfo;
 
 	CreateWindowFunc		fpCreateWindow;

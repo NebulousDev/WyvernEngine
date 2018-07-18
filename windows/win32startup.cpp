@@ -108,9 +108,8 @@ RESULT StartApplication(Win32State* state, Platform* platform)
 	MSG msg = {};
 	while (state->running)
 	{
-		if(PeekMessage(&msg, 0, 0, 0, 0))
+		if(PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
 		{
-			GetMessage(&msg, NULL, 0, 0);
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
@@ -133,7 +132,7 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 
 	Platform platform;
 	Win32SetupPlatform(&platform, platformInfo);
-	
+
 	Win32State state;
 	state.instance	= instance;
 	state.arguments = arguments;

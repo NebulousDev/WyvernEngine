@@ -17,7 +17,7 @@ struct WindowInfo
 	uint32			height;
 	uint32			posX;
 	uint32			posY;
-	uint32			flags;
+	BITS32			flags;
 };
 
 struct Window
@@ -30,17 +30,21 @@ struct Window
 	uint32			height;
 	uint32			posX;
 	uint32			posY;
-	uint32			flags;
+	BITS32			flags;
 	bool8			valid;
 };
 
 typedef WYVHANDLE WindowHandle;
 
-bool8				ValidateHandle(WindowHandle handle);
+bool8				ValidateHandle(WindowHandle window);
 
 const WindowHandle	CreateWindow(const WindowInfo info);
 
-RESULT				FreeWindow(WindowHandle* handle);
+RESULT				FreeWindow(WindowHandle* window);
+
+const Window*		GetWindow(WindowHandle window);
+
+const WYVPTRHANDLE	GetWindowInstance(WindowHandle window);
 
 RESULT				GetWindowSize(const WindowHandle window, uint32* width, uint32* height);
 

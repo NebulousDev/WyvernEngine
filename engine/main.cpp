@@ -2,6 +2,8 @@
 #include <platform\window.h>
 #include <iostream>
 
+#include "graphics\d3d11\d3d11Context.h"
+
 EXPORT void Create(ApplicationInfo* info)
 {
 	info->appName			= "Wyvern Game";
@@ -27,7 +29,19 @@ EXPORT void Start(const Application* app, const Platform* platform)
 	windInfo.flags		= 0;
 
 	WindowHandle wind = CreateWindow(windInfo);
+	//WindowHandle wind = CreateWindow(windInfo, contextInfo);	//eventually
 	RESULT show = ShowWindow(wind);
+
+	Context context = {};
+
+	ContextCreationInfo contextInfo = {};
+	contextInfo.bufferCount		= 1;
+	contextInfo.multisamples	= 1;
+	contextInfo.renderDevice	= RENDER_DEVICE_DIREXT3D_11;
+
+	D3D11CreateContext(&context, contextInfo, GetWindow(wind));
+
+	std::cout << context.swapChain << std::endl;
 }
 
 EXPORT void Loop(const Application* app)

@@ -60,6 +60,22 @@ RESULT FreeWindow(WindowHandle* handle)
 	return FAILURE;
 }
 
+const Window* GetWindow(WindowHandle window)
+{
+	if (ValidateHandle(window))
+		return &sWindows[window];
+
+	return NULLPTR;
+}
+
+const WYVPTRHANDLE GetWindowInstance(WindowHandle window)
+{
+	if (ValidateHandle(window))
+		return sWindows[window].instance;
+
+	return NULLPTR;
+}
+
 RESULT GetWindowSize(const WindowHandle window, uint32* width, uint32* height)
 {
 	if (ValidateHandle(window))

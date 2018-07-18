@@ -15,8 +15,18 @@ typedef double					d64;
 
 typedef uint8					bool8;
 
+typedef uint8					bitfield8;
+typedef uint16					bitfield16;
+typedef uint32					bitfield32;
+typedef uint64					bitfield64;
+
 typedef uint32*					ptr32;
 typedef uint64*					ptr64;
+
+#define BITS8					bitfield8
+#define BITS16					bitfield16
+#define BITS32					bitfield32
+#define BITS64					bitfield64
 
 #define WYVHANDLE				int32
 #define WYVPTRHANDLE			ptr32
