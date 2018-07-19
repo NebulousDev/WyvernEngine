@@ -1,4 +1,15 @@
 #include "openglGraphics.h"
+#include "opengl.h"
+
+void GLSetupFunctions(Context* context)
+{
+	context->fpCreateContext		= GLCreateContext;
+	context->fpSetContextCurrent	= GLSetContextCurrent;
+	context->fpDisposeContext		= GLDisposeContext;
+	context->fpCreateRenderTarget	= GLCreateRenderTarget;
+	context->fpClearRenderTarget	= GLClearRenderTarget;
+	context->fpPresent				= GLPresent;
+}
 
 RESULT GLCreateContext(Context** context, ContextInfo info, const Window* window)
 {

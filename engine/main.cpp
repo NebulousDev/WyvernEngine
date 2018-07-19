@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "graphics\graphics.h"
-#include "graphics\d3d11\d3d11Graphics.h"
+#include <d3d11Graphics.h>
+#include <openglGraphics.h>
 
 EXPORT void Create(ApplicationInfo* info)
 {
