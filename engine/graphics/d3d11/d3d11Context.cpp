@@ -39,10 +39,10 @@ RESULT D3D11CreateContext(Context* context, ContextCreationInfo info, const Wind
 
 RESULT D3D11DisposeContext(Context* context)
 {
-
+	return SUCCESS;
 }
 
 RESULT D3D11CreateRenderTarget(RenderTarget * target, RenderTargetInfo info)
 {
-	return RESULT();
+	return SUCCESS;
 }
