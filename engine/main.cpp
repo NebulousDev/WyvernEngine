@@ -11,40 +11,37 @@ EXPORT void Create(ApplicationInfo* info)
 	info->appMemAllocSize	= MEGABYTES(64);
 }
 
+static float32 colors[4]{ 0.0f, 0.08f, 0.1f, 1.0f };
+
 EXPORT void Start(const Application* app, const Platform* platform)
 {
-	InitPlaform(platform);
+	InitPlaform(platform);	// Call from platform?
 
-	PlatformInfo info = GetPlatformInfo();
+	PlatformInfo info			= GetPlatformInfo();
 
-	std::cout << info.platformName << std::endl;
-	std::cout << info.platformVersion << std::endl;
+	WindowInfo windInfo			= {};
+	windInfo.title				= "WyvernGame";
+	windInfo.width				= 1280;
+	windInfo.height				= 720;
+	windInfo.posX				= 20;
+	windInfo.posY				= 20;
+	windInfo.flags				= 0;
 
-	WindowInfo windInfo = {};
-	windInfo.title		= "WyvernGame";
-	windInfo.width		= 1280;
-	windInfo.height		= 720;
-	windInfo.posX		= 20;
-	windInfo.posY		= 20;
-	windInfo.flags		= 0;
-
-	WindowHandle wind = CreateWindow(windInfo);
-	//WindowHandle wind = CreateWindow(windInfo, contextInfo);	//eventually
-	RESULT show = ShowWindow(wind);
-
-	Context context = {};
-
-	ContextCreationInfo contextInfo = {};
+	ContextInfo contextInfo		= {};
 	contextInfo.bufferCount		= 1;
 	contextInfo.multisamples	= 1;
-	contextInfo.renderDevice	= RENDER_DEVICE_DIREXT3D_11;
+	contextInfo.renderDevice	= RENDER_DEVICE_DIRECT3D_11;
+	contextInfo.flags			= CONTEXT_WINDOWED;
 
-	D3D11CreateContext(&context, contextInfo, GetWindow(wind));
+	WindowHandle wind = CreateWindow(windInfo);
+	RESULT show = ShowWindow(wind);
 
-	std::cout << context.swapChain << std::endl;
+	ContextHandle context = CreateContext(wind, contextInfo);
+	SetContextCurrent(context);
 }
 
 EXPORT void Loop(const Application* app)
 {
-	
+	ClearBackbuffer(colors);
+	Present();
 }

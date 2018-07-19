@@ -21,12 +21,18 @@
     <ClCompile Include="graphics\d3d11\d3d11Context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\pipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics\opengl3\openglContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\d3d11\d3d11Context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\pipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,7 +8,8 @@
 #define MEGABYTES(size)		1000 * KILOBYTES(size)
 #define GIGABYTES(size)		1000 * MEGABYTES(size)
 
-#define RESULT uint8
+typedef uint32 result;
+#define RESULT result
 
 #define SUCCESS 0x1
 #define FAILURE 0x0

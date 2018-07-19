@@ -176,11 +176,13 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="graphics\d3d11\d3d11Context.cpp" />
+    <ClCompile Include="graphics\pipeline.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphics\d3d11\d3d11Context.h" />
     <ClInclude Include="graphics\opengl3\openglContext.h" />
+    <ClInclude Include="graphics\pipeline.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
