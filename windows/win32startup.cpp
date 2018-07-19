@@ -45,11 +45,6 @@ LRESULT CALLBACK HandleEvents(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-RESULT SetupPlatform(Platform* platform)
-{
-	return SUCCESS;
-}
-
 RESULT SetupApplication(Win32State* state)
 {
 	state->runtime = Win32CreateCoreRuntime(CORE_DLL_NAME);

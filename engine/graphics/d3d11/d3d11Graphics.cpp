@@ -1,4 +1,4 @@
-#include "d3d11Context.h"
+#include "d3d11Graphics.h"
 #include <d3d11.h>
 
 void D3D11SetupFunctions(Context* context)
@@ -126,7 +126,7 @@ RESULT D3D11ClearRenderTarget(const RenderTarget* target, const Context* context
 
 RESULT D3D11Present(const Context* context)
 {
-	HRESULT result = ((IDXGISwapChain*)context->swapChain)->Present(context->vSync, 0);
-	return result == S_OK ? SUCCESS : FAILURE;
+	return ((IDXGISwapChain*)context->swapChain)->Present(context->vSync, 0) 
+		== S_OK ? SUCCESS : FAILURE;
 }
 

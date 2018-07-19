@@ -1,6 +1,5 @@
 #pragma once
 #include <graphics\graphics.h>
-#include <common.h>
 
 RESULT D3D11CreateContext(Context** context, ContextInfo info, const Window* window);
 

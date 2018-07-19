@@ -18,21 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\d3d11\d3d11Context.cpp">
+    <ClCompile Include="graphics\d3d11\d3d11Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\pipeline.cpp">
+    <ClCompile Include="graphics\opengl\openglGraphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="graphics\opengl3\openglContext.h">
+    <ClInclude Include="graphics\d3d11\d3d11Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\d3d11\d3d11Context.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\pipeline.h">
+    <ClInclude Include="graphics\opengl\openglGraphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

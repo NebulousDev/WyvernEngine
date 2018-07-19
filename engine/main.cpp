@@ -2,7 +2,8 @@
 #include <platform\window.h>
 #include <iostream>
 
-#include "graphics\d3d11\d3d11Context.h"
+#include "graphics\graphics.h"
+#include "graphics\d3d11\d3d11Graphics.h"
 
 EXPORT void Create(ApplicationInfo* info)
 {
