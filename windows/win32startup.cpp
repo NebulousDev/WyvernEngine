@@ -161,8 +161,6 @@ int CALLBACK WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR arguments
 	result = CreateApplication(&state);
 	result = StartApplication(&state, &platform);
 
-	system("PAUSE");
-
 	Win32FreeRuntime(state.runtime);
 
 	FreeConsole();
