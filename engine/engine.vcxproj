@@ -177,6 +177,10 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="hlsl\pixelTestShader.hlsl" />
+    <FxCompile Include="hlsl\vertTestShader.hlsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

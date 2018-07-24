@@ -1,6 +1,8 @@
 #pragma once
 #include "../common.h"
 
+#define MAX_PATH_LENGTH	512
+
 struct ApplicationInfo
 {
 	const char*		appName;
@@ -33,6 +35,12 @@ struct Platform
 	typedef RESULT			(*ShowWindowFunc)(Window* window);
 	typedef RESULT			(*HideWindowFunc)(Window* window);
 
+	typedef RESULT			(*GetWorkingDirectoryFunc)(char* path);
+
+	typedef RESULT			(*GetFileSizeFunc)(uint64* size, const char* filepath);
+	typedef RESULT			(*ReadFileToBuffer)(char* buffer, const uint64 bufferSize,
+												const uint64 offset, const uint64 bytes, const char* filepath);
+
 	typedef Runtime*		(*CreateRuntimeFunc)(const char* dllname);
 	typedef CoreRuntime*	(*CreateCoreRuntimeFunc)(const char* dllname);
 	typedef	void			(*FreeRuntimeFunc)(Runtime* runtime);
@@ -45,6 +53,11 @@ struct Platform
 	ShowWindowFunc			fpShowWindow;
 	HideWindowFunc			fpHideWindow;
 
+	GetWorkingDirectoryFunc	fpGetWorkingDirectory;
+
+	GetFileSizeFunc			fpGetFileSize;
+	ReadFileToBuffer		fpReadFileToBuffer;
+
 	CreateRuntimeFunc		fpCreateRuntime;
 	CreateCoreRuntimeFunc	fpCreateCoreRuntime;
 	FreeRuntimeFunc			fpFreeRuntime;
@@ -53,6 +66,14 @@ struct Platform
 void				InitPlaform(const Platform* platform);
 const Platform*		GetPlatform();
 const PlatformInfo	GetPlatformInfo();
+
+///////////////////////////////////////////////////////////////
+
+RESULT				GetWorkingDirectory(char* path);
+
+RESULT				GetFileSize(uint64* size, const char* filepath);
+RESULT				ReadFileToBuffer(char* buffer, const uint64 bufferSize, 
+										const uint64 offset, const uint64 bytes, const char* filepath);
 
 ///////////////////////////////////////////////////////////////
 
