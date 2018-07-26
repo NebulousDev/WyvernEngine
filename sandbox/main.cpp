@@ -6,7 +6,7 @@
 #include <d3d11Graphics.h>
 #include <openglGraphics.h>
 
-EXPORT void Create(ApplicationInfo* info)
+WYVERN_DLL_API void Create(ApplicationInfo* info)
 {
 	info->appName			= "Wyvern Game";
 	info->appVersion		= "1.0.0";
@@ -15,7 +15,7 @@ EXPORT void Create(ApplicationInfo* info)
 
 static float32 colors[4]{ 0.0f, 0.08f, 0.1f, 1.0f };
 
-EXPORT void Start(const Application* app, const Platform* platform)
+WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 {
 	InitPlaform(platform);	// Call from platform?
 
@@ -42,7 +42,7 @@ EXPORT void Start(const Application* app, const Platform* platform)
 	SetContextCurrent(context);
 }
 
-EXPORT void Loop(const Application* app)
+WYVERN_DLL_API void Loop(const Application* app)
 {
 	ClearBackbuffer(colors);
 	Present();

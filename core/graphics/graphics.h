@@ -1,6 +1,6 @@
 #pragma once
-#include "../platform/window.h"
 #include "../common.h"
+#include "../platform/window.h"
 
 #define CONTEXT_WINDOWED		0x0
 #define CONTEXT_FULLSCREEN		0x1
@@ -13,31 +13,22 @@ typedef WYVPTRHANDLE ContextHandle;
 typedef WYVPTRHANDLE RenderTargetHandle;
 
 struct Context;
+struct ContextInfo;
+struct Shader;
+struct ShaderInfo;
 
-/*
-enum RenderDevice
-{
-	RENDER_DEVICE_OPENGL,
-	RENDER_DEVICE_OPENGL2,
-	RENDER_DEVICE_DIREXT3D_9,
-	RENDER_DEVICE_DIREXT3D_11,
-	RENDER_DEVICE_DIREXT3D_12,
-	RENDER_DEVICE_VULKAN
-};
-*/
-
-struct RenderTargetInfo
+struct WYVERN_CORE_API RenderTargetInfo
 {
 	//TODO: add more info
 };
 
-struct RenderTarget
+struct WYVERN_CORE_API RenderTarget
 {
 	WYVPTRHANDLE	instance;
 	Context*		context;
 };
 
-struct ContextInfo
+struct WYVERN_CORE_API ContextInfo
 {
 	WYVPTRHANDLE	renderDevice;
 	uint32			bufferCount;
@@ -45,7 +36,7 @@ struct ContextInfo
 	BITS32			flags;
 };
 
-struct Context
+struct WYVERN_CORE_API Context
 {
 	WYVPTRHANDLE			instance;
 	WYVPTRHANDLE			swapChain;
@@ -57,6 +48,10 @@ struct Context
 	typedef	RESULT			(*CreateContextFunc)(Context** context, ContextInfo info, const Window* window);
 	typedef	RESULT			(*DisposeContextFunc)(Context* context);
 	typedef RESULT			(*SetContextCurrentFunc)(Context* context);
+
+	typedef RESULT			(*CreateShaderFunc)(Shader** shader, const Context* context, const ShaderInfo info);
+	typedef RESULT			(*DisposeShaderFunc)(Shader** shader);
+
 	typedef RESULT			(*CreateRenderTargetFunc)(RenderTarget* target, const RenderTargetInfo info, Context* context);
 	typedef RESULT			(*ClearRenderTargetFunc)(const RenderTarget* target, const Context* context, const float32 color[4]);
 	typedef	RESULT			(*PresentFunc)(const Context* context);
@@ -64,25 +59,35 @@ struct Context
 	CreateContextFunc		fpCreateContext;
 	DisposeContextFunc		fpDisposeContext;
 	SetContextCurrentFunc	fpSetContextCurrent;
+
+	CreateShaderFunc		fpCreateShader;
+	DisposeShaderFunc		fpDisposeShader;
+
 	CreateRenderTargetFunc	fpCreateRenderTarget;
 	ClearRenderTargetFunc	fpClearRenderTarget;
 	PresentFunc				fpPresent;
 };
 
+WYVERN_CORE_API 
 const ContextHandle			CreateContext(const WindowHandle window, const ContextInfo info);
-
+WYVERN_CORE_API 
 RESULT						DisposeContext(ContextHandle* context);
-
+WYVERN_CORE_API 
 RESULT						SetContextCurrent(const ContextHandle context);
 
+WYVERN_CORE_API 
 const RenderTargetHandle	CreateRenderTarget(const RenderTargetInfo info);
-
+WYVERN_CORE_API 
 RESULT						ClearRenderTarget(const RenderTargetHandle target, const float32 color[4]);
-
+WYVERN_CORE_API 
 RESULT						ClearBackbuffer(const float32 color[4]);
 
+WYVERN_CORE_API 
 RESULT						Present();
 
+WYVERN_CORE_API 
 const ContextHandle			GetCurrentContext();
-
-const Context*				GetContext(const ContextHandle context);
+WYVERN_CORE_API 
+const Context*				GetCurrentContextData();
+WYVERN_CORE_API 
+const Context*				GetContextData(const ContextHandle context);

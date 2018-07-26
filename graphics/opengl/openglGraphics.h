@@ -1,17 +1,19 @@
 #pragma once
 #include <graphics\graphics.h>
 
-RESULT GLCreateContext(Context** context, ContextInfo info, const Window* window);
+#define WYVERN_D3D11_API __declspec(dllexport)
 
-RESULT GLDisposeContext(Context* context);
+WYVERN_D3D11_API RESULT GLCreateContext(Context** context, ContextInfo info, const Window* window);
 
-RESULT GLSetContextCurrent(Context* context);
+WYVERN_D3D11_API RESULT GLDisposeContext(Context* context);
 
-RESULT GLCreateRenderTarget(RenderTarget* target, const RenderTargetInfo info, Context* context);
+WYVERN_D3D11_API RESULT GLSetContextCurrent(Context* context);
 
-RESULT GLClearRenderTarget(const RenderTarget* target, const Context* context, const float32 color[4]);
+WYVERN_D3D11_API RESULT GLCreateRenderTarget(RenderTarget* target, const RenderTargetInfo info, Context* context);
 
-RESULT GLPresent(const Context* context);
+WYVERN_D3D11_API RESULT GLClearRenderTarget(const RenderTarget* target, const Context* context, const float32 color[4]);
+
+WYVERN_D3D11_API RESULT GLPresent(const Context* context);
 
 // Define the function to create a D3D11 context (wonky, subject to change)
 #define RENDER_DEVICE_OPENGL \

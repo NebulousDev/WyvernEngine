@@ -1,7 +1,7 @@
 #include "runtime.h"
 
 template<typename Function>
-inline Function Runtime::GetFunction(const char* funcName)
+Function Runtime::GetFunction(const char* funcName)
 {
 	return (Function)fpGetFunction(this, funcName);
 }

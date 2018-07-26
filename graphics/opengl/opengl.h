@@ -1,7 +1,9 @@
 #pragma once
 #include <glew\glew.h>
 
-#ifndef OPENGL_INCLUDED
+#define WYVERN_OPENGL
+
+#ifdef WYVERN_OPENGL
 
 #pragma comment(lib, "opengl32.lib") 
 
@@ -13,4 +15,4 @@
 
 #define OPENGL_INCLUDED
 
-#endif // !OPENGL_INCLUDED
+#endif // !WYVERN_OPENGL

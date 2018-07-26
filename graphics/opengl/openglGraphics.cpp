@@ -1,6 +1,8 @@
 #include "openglGraphics.h"
 #include "opengl.h"
 
+#include <iostream>
+
 void GLSetupFunctions(Context* context)
 {
 	context->fpCreateContext		= GLCreateContext;
@@ -13,6 +15,7 @@ void GLSetupFunctions(Context* context)
 
 RESULT GLCreateContext(Context** context, ContextInfo info, const Window* window)
 {
+	std::cout << "GLCONTEXT" << std::endl;
 	return SUCCESS;
 }
 

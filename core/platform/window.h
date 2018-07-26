@@ -10,7 +10,7 @@
 
 #define INVALID_HANDLE	-1;
 
-struct WindowInfo
+struct WYVERN_CORE_API WindowInfo
 {
 	const char*		title;
 	uint32			width;
@@ -20,7 +20,7 @@ struct WindowInfo
 	BITS32			flags;
 };
 
-struct Window
+struct WYVERN_CORE_API Window
 {
 	uint32			id;
 	uint32			next;
@@ -36,20 +36,21 @@ struct Window
 
 typedef WYVHANDLE WindowHandle;
 
+WYVERN_CORE_API
 bool8				ValidateHandle(WindowHandle window);
-
+WYVERN_CORE_API
 const WindowHandle	CreateWindow(const WindowInfo info);
-
+WYVERN_CORE_API
 RESULT				FreeWindow(WindowHandle* window);
-
+WYVERN_CORE_API
 const Window*		GetWindow(WindowHandle window);
-
+WYVERN_CORE_API
 const WYVPTRHANDLE	GetWindowInstance(WindowHandle window);
-
+WYVERN_CORE_API
 RESULT				GetWindowSize(const WindowHandle window, uint32* width, uint32* height);
-
+WYVERN_CORE_API
 RESULT				SetWindowSize(const WindowHandle window, uint32 width, uint32 height);
-
+WYVERN_CORE_API
 RESULT				ShowWindow(const WindowHandle window);
-
+WYVERN_CORE_API
 RESULT				HideWindow(const WindowHandle window);

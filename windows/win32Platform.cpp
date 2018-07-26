@@ -142,7 +142,7 @@ RESULT Win32ReadFileToBuffer(char* buffer, const uint64 bufferSize, const uint64
 
 	DWORD bytesRead = 0;
 
-	if (!ReadFile(file, buffer + offset, bytes, &bytesRead, NULL))
+	if (!ReadFile(file, buffer + offset, (DWORD)bytes, &bytesRead, NULL))
 	{
 		DWORD error = GetLastError();
 		LPTSTR errorText = NULLPTR;

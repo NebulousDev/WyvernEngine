@@ -15,22 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d3d11Graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="d3d11Shaders.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="vulkan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkanGraphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="d3d11Graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3d11.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3d11Shaders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="vulkanGraphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

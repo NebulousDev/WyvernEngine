@@ -50,7 +50,12 @@ const ContextHandle GetCurrentContext()
 	return (ContextHandle)sContext;
 }
 
-const Context* GetContext(const ContextHandle context)
+const Context* GetCurrentContextData()
+{
+	return (Context*)sContext;
+}
+
+const Context* GetContextData(const ContextHandle context)
 {
 	return (Context*)context;
 }

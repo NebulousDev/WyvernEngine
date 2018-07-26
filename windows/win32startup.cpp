@@ -4,7 +4,7 @@
 #include "win32State.h"
 #include "win32.h"
 
-#define CORE_DLL_NAME "wyvernengine.dll"
+#define CORE_DLL_NAME "wyverngame.dll"
 
 #define SET_STATE_MESSAGE		(WM_USER + 1)
 #define SET_RUNTIME_MESSAGE		(WM_USER + 2)

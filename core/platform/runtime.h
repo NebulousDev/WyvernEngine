@@ -1,7 +1,7 @@
 #pragma once
 #include "platform.h"
 
-class Runtime
+class WYVERN_CORE_API Runtime
 {
 public:
 	typedef void*(*GetFunctionFunc)(Runtime* runtime, const char* func);
@@ -14,7 +14,7 @@ protected:
 
 public:
 	template<typename Function>
-	Function GetFunction(const char* func);
+	WYVERN_CORE_API Function GetFunction(const char* func);
 
 	INLINE const void* GetInstance() { return mInstance; }
 };
@@ -34,7 +34,7 @@ protected:
 	CoreRuntime() : Runtime() {}
 
 public:
-	RESULT Create(ApplicationInfo* info);
-	RESULT Start(const Application* app, const Platform* platform);
-	RESULT Loop(const Application* app);
+	WYVERN_CORE_API RESULT Create(ApplicationInfo* info);
+	WYVERN_CORE_API RESULT Start(const Application* app, const Platform* platform);
+	WYVERN_CORE_API RESULT Loop(const Application* app);
 };

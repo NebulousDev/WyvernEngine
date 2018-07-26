@@ -1,3 +1,4 @@
+#include <graphics\shaders.h>
 #include "d3d11Graphics.h"
 #include "d3d11.h"
 
@@ -69,6 +70,7 @@ RESULT D3D11DisposeContext(Context* context)
 	((IDXGISwapChain*)context->swapChain)->Release();
 	((ID3D11Device*)context->device)->Release();
 	((ID3D11DeviceContext*)context->instance)->Release();
+	((ID3D11RenderTargetView*)context->backBuffer.instance)->Release();		// D3D11DisposeRenderTarget
 
 	context->swapChain	= NULLPTR;
 	context->device		= NULLPTR;
