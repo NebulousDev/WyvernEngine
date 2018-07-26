@@ -20,7 +20,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "direct3d", "graphics\direct
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opengl", "graphics\opengl\opengl.vcxproj", "{D905A8EF-1DD9-4BBA-8B22-7548ED6C4DF0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vulkan", "vulkan\vulkan.vcxproj", "{C6D27906-5006-428F-A884-004C457B326B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vulkan", "graphics\vulkan\vulkan.vcxproj", "{C6D27906-5006-428F-A884-004C457B326B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
