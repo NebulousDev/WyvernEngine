@@ -3,13 +3,23 @@
 
 const ShaderHandle CreateShader(const ContextHandle context, const ShaderInfo info)
 {
-	Shader* shader = NULLPTR;
-	((Context*)context)->fpCreateShader(&shader, (Context*)context, info);
-	return (ShaderHandle)shader;
+	Shader* pShader = NULLPTR;
+	((Context*)context)->fpCreateShader(&pShader, (Context*)context, info);
+	return (ShaderHandle)pShader;
 }
 
-void DisposeShader(ShaderHandle* shader)
+void DisposeShader(ShaderHandle* phShader)
 {
-	GetCurrentContextData()->fpDisposeShader((Shader**)shader);
-	*shader = NULLPTR;
+	GetCurrentContext()->fpDisposeShader((Shader**)phShader);
+	*phShader = NULLPTR;
+}
+
+RESULT BindShader(ShaderHandle hShader)
+{
+	return GetCurrentContext()->fpBindShader((Shader*)hShader, GetCurrentContext());
+}
+
+RESULT UnbindShader()
+{
+	return GetCurrentContext()->fpUnbindShader(GetCurrentContext());
 }

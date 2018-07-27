@@ -24,13 +24,13 @@ struct WYVERN_CORE_API RenderTargetInfo
 
 struct WYVERN_CORE_API RenderTarget
 {
-	WYVPTRHANDLE	instance;
-	Context*		context;
+	WYVPTRHANDLE	hTarget;
+	Context*		pContext;		// convert to handle?
 };
 
 struct WYVERN_CORE_API ContextInfo
 {
-	WYVPTRHANDLE	renderDevice;
+	WYVPTRHANDLE	hRenderDevice;
 	uint32			bufferCount;
 	uint32			multisamples;
 	BITS32			flags;
@@ -38,23 +38,25 @@ struct WYVERN_CORE_API ContextInfo
 
 struct WYVERN_CORE_API Context
 {
-	WYVPTRHANDLE			instance;
-	WYVPTRHANDLE			swapChain;
-	WYVPTRHANDLE			device;
-	WYVPTRHANDLE			renderDevice;
+	WYVPTRHANDLE			hDevice;
+	WYVPTRHANDLE			hDeviceContext;
+	WYVPTRHANDLE			hSwapChain;
+	WYVPTRHANDLE			hRenderDevice;
 	RenderTarget			backBuffer;
 	uint32					vSync;
 
-	typedef	RESULT			(*CreateContextFunc)(Context** context, ContextInfo info, const Window* window);
-	typedef	RESULT			(*DisposeContextFunc)(Context* context);
-	typedef RESULT			(*SetContextCurrentFunc)(Context* context);
+	typedef	RESULT			(*CreateContextFunc)(Context** ppContext, ContextInfo info, const Window* pWindow);
+	typedef	RESULT			(*DisposeContextFunc)(Context* pContext);
+	typedef RESULT			(*SetContextCurrentFunc)(Context* pContext);
 
-	typedef RESULT			(*CreateShaderFunc)(Shader** shader, const Context* context, const ShaderInfo info);
-	typedef RESULT			(*DisposeShaderFunc)(Shader** shader);
+	typedef RESULT			(*CreateShaderFunc)(Shader** ppShader, const Context* pContext, const ShaderInfo info);
+	typedef RESULT			(*DisposeShaderFunc)(Shader** ppShader);
+	typedef	RESULT			(*BindShaderFunc)(Shader* pShader, const Context* pContext);
+	typedef	RESULT			(*UnbindShaderFunc)(const Context* pContext);
 
-	typedef RESULT			(*CreateRenderTargetFunc)(RenderTarget* target, const RenderTargetInfo info, Context* context);
-	typedef RESULT			(*ClearRenderTargetFunc)(const RenderTarget* target, const Context* context, const float32 color[4]);
-	typedef	RESULT			(*PresentFunc)(const Context* context);
+	typedef RESULT			(*CreateRenderTargetFunc)(RenderTarget* pTarget, const RenderTargetInfo info, Context* pContext);		// move params
+	typedef RESULT			(*ClearRenderTargetFunc)(const RenderTarget* pTarget, const Context* pContext, const float32 color[4]);
+	typedef	RESULT			(*PresentFunc)(const Context* pContext);
 
 	CreateContextFunc		fpCreateContext;
 	DisposeContextFunc		fpDisposeContext;
@@ -62,6 +64,8 @@ struct WYVERN_CORE_API Context
 
 	CreateShaderFunc		fpCreateShader;
 	DisposeShaderFunc		fpDisposeShader;
+	BindShaderFunc			fpBindShader;
+	UnbindShaderFunc		fpUnbindShader;
 
 	CreateRenderTargetFunc	fpCreateRenderTarget;
 	ClearRenderTargetFunc	fpClearRenderTarget;
@@ -69,16 +73,16 @@ struct WYVERN_CORE_API Context
 };
 
 WYVERN_CORE_API 
-const ContextHandle			CreateContext(const WindowHandle window, const ContextInfo info);
+const ContextHandle			CreateContext(const WindowHandle hWindow, const ContextInfo info);
 WYVERN_CORE_API 
-RESULT						DisposeContext(ContextHandle* context);
+RESULT						DisposeContext(ContextHandle* phContext);
 WYVERN_CORE_API 
-RESULT						SetContextCurrent(const ContextHandle context);
+RESULT						SetContextCurrent(const ContextHandle hContext);
 
 WYVERN_CORE_API 
 const RenderTargetHandle	CreateRenderTarget(const RenderTargetInfo info);
 WYVERN_CORE_API 
-RESULT						ClearRenderTarget(const RenderTargetHandle target, const float32 color[4]);
+RESULT						ClearRenderTarget(const RenderTargetHandle hTarget, const float32 color[4]);
 WYVERN_CORE_API 
 RESULT						ClearBackbuffer(const float32 color[4]);
 
@@ -86,8 +90,8 @@ WYVERN_CORE_API
 RESULT						Present();
 
 WYVERN_CORE_API 
-const ContextHandle			GetCurrentContext();
+const ContextHandle			GetCurrentContextHandle();
 WYVERN_CORE_API 
-const Context*				GetCurrentContextData();
+const Context*				GetCurrentContext();
 WYVERN_CORE_API 
-const Context*				GetContextData(const ContextHandle context);
+const Context*				GetContextFromHandle(const ContextHandle hContext);

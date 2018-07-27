@@ -1,5 +1,6 @@
 #include <graphics\shaders.h>
 #include "d3d11Graphics.h"
+#include "d3d11Shaders.h"
 #include "d3d11.h"
 
 void D3D11SetupFunctions(Context* context)
@@ -7,6 +8,12 @@ void D3D11SetupFunctions(Context* context)
 	context->fpCreateContext		= D3D11CreateContext;
 	context->fpSetContextCurrent	= D3D11SetContextCurrent;
 	context->fpDisposeContext		= D3D11DisposeContext;
+
+	context->fpCreateShader			= D3D11CreateShader;
+	context->fpDisposeShader		= D3D11DisposeShader;
+	context->fpBindShader			= D3D11BindShader;
+	context->fpUnbindShader			= D3D11UnbindShader;
+
 	context->fpCreateRenderTarget	= D3D11CreateRenderTarget;
 	context->fpClearRenderTarget	= D3D11ClearRenderTarget;
 	context->fpPresent				= D3D11Present;
@@ -43,11 +50,11 @@ RESULT D3D11CreateContext(Context** context, ContextInfo info, const Window* win
 	Context* contextImpl = *context;
 	contextImpl = new Context;
 
-	contextImpl->instance		= (WYVPTRHANDLE)deviceContext;
-	contextImpl->swapChain		= (WYVPTRHANDLE)swapChain;
-	contextImpl->device			= (WYVPTRHANDLE)device;
-	contextImpl->renderDevice	= info.renderDevice;
-	contextImpl->vSync			= info.flags & CONTEXT_VSYNC ? 1 : 0;
+	contextImpl->hDeviceContext		= (WYVPTRHANDLE)deviceContext;
+	contextImpl->hSwapChain			= (WYVPTRHANDLE)swapChain;
+	contextImpl->hDevice			= (WYVPTRHANDLE)device;
+	contextImpl->hRenderDevice		= info.hRenderDevice;
+	contextImpl->vSync				= info.flags & CONTEXT_VSYNC ? 1 : 0;
 
 	RenderTargetInfo renderTargetInfo = {};	//TODO: I dont like this
 	result = D3D11CreateRenderTarget(&contextImpl->backBuffer, renderTargetInfo, contextImpl);
@@ -67,14 +74,14 @@ RESULT D3D11CreateContext(Context** context, ContextInfo info, const Window* win
 
 RESULT D3D11DisposeContext(Context* context)
 {
-	((IDXGISwapChain*)context->swapChain)->Release();
-	((ID3D11Device*)context->device)->Release();
-	((ID3D11DeviceContext*)context->instance)->Release();
-	((ID3D11RenderTargetView*)context->backBuffer.instance)->Release();		// D3D11DisposeRenderTarget
+	((IDXGISwapChain*)context->hSwapChain)->Release();
+	((ID3D11Device*)context->hDevice)->Release();
+	((ID3D11DeviceContext*)context->hDeviceContext)->Release();
+	((ID3D11RenderTargetView*)context->backBuffer.hTarget)->Release();		// D3D11DisposeRenderTarget
 
-	context->swapChain	= NULLPTR;
-	context->device		= NULLPTR;
-	context->instance	= NULLPTR;
+	context->hSwapChain	= NULLPTR;
+	context->hDevice		= NULLPTR;
+	context->hDeviceContext	= NULLPTR;
 
 	delete context;
 
@@ -92,8 +99,8 @@ RESULT D3D11CreateRenderTarget(RenderTarget* target, const RenderTargetInfo info
 	ID3D11RenderTargetView* renderTarget	= NULLPTR;
 	ID3D11Texture2D* backBuffer				= NULLPTR;
 
-	IDXGISwapChain* swapChain	= (IDXGISwapChain*)context->swapChain;
-	ID3D11Device*	device		= (ID3D11Device*)context->device;
+	IDXGISwapChain* swapChain	= (IDXGISwapChain*)context->hSwapChain;
+	ID3D11Device*	device		= (ID3D11Device*)context->hDevice;
 
 	HRESULT result = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
 
@@ -114,21 +121,21 @@ RESULT D3D11CreateRenderTarget(RenderTarget* target, const RenderTargetInfo info
 
 	backBuffer->Release();
 
-	target->instance = (WYVPTRHANDLE)renderTarget;
-	target->context = context;
+	target->hTarget = (WYVPTRHANDLE)renderTarget;
+	target->pContext = context;
 
 	return SUCCESS;
 }
 
 RESULT D3D11ClearRenderTarget(const RenderTarget* target, const Context* context, const float32 color[4])
 {
-	((ID3D11DeviceContext*)context->instance)->ClearRenderTargetView((ID3D11RenderTargetView*)target->instance, color);
+	((ID3D11DeviceContext*)context->hDeviceContext)->ClearRenderTargetView((ID3D11RenderTargetView*)target->hTarget, color);
 	return SUCCESS;
 }
 
 RESULT D3D11Present(const Context* context)
 {
-	return ((IDXGISwapChain*)context->swapChain)->Present(context->vSync, 0) 
+	return ((IDXGISwapChain*)context->hSwapChain)->Present(context->vSync, 0) 
 		== S_OK ? SUCCESS : FAILURE;
 }
 

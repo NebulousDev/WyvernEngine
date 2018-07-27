@@ -23,37 +23,55 @@ enum WYVERN_CORE_API ShaderFormat
 	SHADER_FORMAT_GLSL
 };
 
-struct WYVERN_CORE_API HLSLShaderResource
+struct WYVERN_CORE_API HLSLShaderSources
 {
-	const char* vertexShdader;
-	const char* pixelShader;
+	ShaderDataType	dataType;
+	const char*		pVertexShader;
+	const char*		pPixelShader;
 };
 
-struct WYVERN_CORE_API GLSLShaderResource
+struct WYVERN_CORE_API GLSLShaderSources
 {
-	const char* vertexShdader;
-	const char* fragmentShader;
+	ShaderDataType	dataType;
+	const char*		pVertexShdader;
+	const char*		pFragmentShader;
+};
+
+struct WYVERN_CORE_API HLSLShaderBuffers
+{
+	WYVPTRHANDLE	hVertexBuffer;
+	WYVPTRHANDLE	hPixelBuffer;
+};
+
+struct WYVERN_CORE_API GLSLShaderBuffers
+{
+	WYVPTRHANDLE	hVertexBuffer;
+	WYVPTRHANDLE	hFragmentBuffer;
 };
 
 struct WYVERN_CORE_API ShaderInfo
 {
-	const char*		name;
-	const char*		filepath;
-	ShaderType		type;
-	ShaderDataType	dataType;
-	ShaderFormat	format;
+	const char*			pName;
+	HLSLShaderSources	hlslSources;
+	GLSLShaderSources	glslSources;
 };
 
 struct WYVERN_CORE_API Shader
 {
-	const char*		name;
-	WYVPTRHANDLE	buffer;
+	const char*			pName;
+	HLSLShaderBuffers	hlslBuffers;
+	GLSLShaderBuffers	glslBuffers;
 };
 
-typedef WYVPTRHANDLE ShaderHandle;
-#define SHADER ShaderHandle;
+typedef WYVPTRHANDLE	ShaderHandle;
+#define HSHADER			ShaderHandle
+#define PHSHADER		ShaderHandle*
 
-WYVERN_CORE_API
-const ShaderHandle CreateShader(const ContextHandle context, const ShaderInfo info);
-WYVERN_CORE_API
-void DisposeShader(ShaderHandle* shader);
+WYVERN_CORE_API 
+const ShaderHandle	CreateShader(const ContextHandle context, const ShaderInfo info);
+WYVERN_CORE_API 
+void				DisposeShader(ShaderHandle* phShader);
+WYVERN_CORE_API	
+RESULT				BindShader(ShaderHandle hShader);
+WYVERN_CORE_API	
+RESULT				UnbindShader();

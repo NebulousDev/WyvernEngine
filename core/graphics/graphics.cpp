@@ -2,24 +2,24 @@
 
 static Context* sContext;
 
-const ContextHandle CreateContext(const WindowHandle window, const ContextInfo info)
+const ContextHandle CreateContext(const WindowHandle hWindow, const ContextInfo info)
 {
-	Context* context = NULLPTR;
-	((Context::CreateContextFunc)info.renderDevice)(&context, info, GetWindow(window));	// SUPER WONKY
-	return (ContextHandle)context;
+	Context* pContext = NULLPTR;
+	((Context::CreateContextFunc)info.hRenderDevice)(&pContext, info, GetWindow(hWindow));	// SUPER WONKY
+	return (ContextHandle)pContext;
 }
 
-RESULT DisposeContext(ContextHandle* context)
+RESULT DisposeContext(ContextHandle* phContext)
 {
-	RESULT result = sContext->fpDisposeContext((Context*)*context);
-	if (result == SUCCESS) *context = INVALID_CONTEXT;
+	RESULT result = sContext->fpDisposeContext((Context*)*phContext);
+	if (result == SUCCESS) *phContext = INVALID_CONTEXT;
 	return result;
 }
 
-RESULT SetContextCurrent(const ContextHandle context)
+RESULT SetContextCurrent(const ContextHandle hContext)
 {
-	RESULT result = ((Context*)context)->fpSetContextCurrent((Context*)context);
-	if(result) sContext = (Context*)context;
+	RESULT result = ((Context*)hContext)->fpSetContextCurrent((Context*)hContext);
+	if(result) sContext = (Context*)hContext;
 	return result;
 }
 
@@ -30,9 +30,9 @@ const RenderTargetHandle CreateRenderTarget(const RenderTargetInfo info)
 	return (RenderTargetHandle)renderTarget;
 }
 
-RESULT ClearRenderTarget(const RenderTargetHandle target, const float32 color[4])
+RESULT ClearRenderTarget(const RenderTargetHandle hTarget, const float32 color[4])
 {
-	return sContext->fpClearRenderTarget((RenderTarget*)target, sContext, color);
+	return sContext->fpClearRenderTarget((RenderTarget*)hTarget, sContext, color);
 }
 
 RESULT ClearBackbuffer(const float32 color[4])
@@ -45,17 +45,17 @@ RESULT Present()
 	return sContext->fpPresent(sContext);
 }
 
-const ContextHandle GetCurrentContext()
+const ContextHandle GetCurrentContextHandle()
 {
 	return (ContextHandle)sContext;
 }
 
-const Context* GetCurrentContextData()
+const Context* GetCurrentContext()
 {
 	return (Context*)sContext;
 }
 
-const Context* GetContextData(const ContextHandle context)
+const Context* GetContextFromHandle(const ContextHandle context)
 {
 	return (Context*)context;
 }

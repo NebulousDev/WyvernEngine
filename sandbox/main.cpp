@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "graphics\graphics.h"
+#include "graphics\shaders.h"
 #include <d3d11Graphics.h>
 #include <openglGraphics.h>
 
@@ -32,7 +33,7 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 	ContextInfo contextInfo		= {};
 	contextInfo.bufferCount		= 1;
 	contextInfo.multisamples	= 1;
-	contextInfo.renderDevice	= RENDER_DEVICE_DIRECT3D_11;
+	contextInfo.hRenderDevice	= RENDER_DEVICE_DIRECT3D_11;
 	contextInfo.flags			= CONTEXT_WINDOWED;
 
 	WindowHandle wind = CreateWindow(windInfo);
@@ -40,6 +41,17 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 
 	ContextHandle context = CreateContext(wind, contextInfo);
 	SetContextCurrent(context);
+
+	HLSLShaderSources testShaderHLSLsources = {};
+	testShaderHLSLsources.pVertexShader		= "shaders/vertTestShader.hlsl";
+	testShaderHLSLsources.pPixelShader		= "shaders/pixelTestShader.hlsl";
+
+	ShaderInfo testShaderInfo	= {};
+	testShaderInfo.pName		= "Test Shader";
+	testShaderInfo.hlslSources	= testShaderHLSLsources;
+
+	ShaderHandle shader = CreateShader(context, testShaderInfo);
+
 }
 
 WYVERN_DLL_API void Loop(const Application* app)
