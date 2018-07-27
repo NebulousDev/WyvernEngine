@@ -1,6 +1,6 @@
 # WyvernEngine
 
-[![Build status](https://ci.appveyor.com/api/projects/status/4ylftugcf8tkay3e/branch/master?svg=true)](https://ci.appveyor.com/project/NebulousDev/wyvernengine/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/4ylftugcf8tkay3e/branch/master?svg=true)](https://ci.appveyor.com/project/NebulousDev/wyvernengine/branch/master)   <- This will likely be broken until I fix dependency issues
 
 Wyvern Engine is a 2D and 3D game engine developed in C/C++
 
@@ -10,12 +10,17 @@ Wyvern Engine is a 2D and 3D game engine developed in C/C++
 - Platforms
     - Windows x86 / x64
 - Render APIs
-    - OpenGL
+    - OpenGL 3+
+        - Context Creation
+    - Direct3D 11
+        - Context Creation
+        - Vertex Shaders
+        - Pixel Shaders
 - Hot-loadable DLLs
 - Platform Independant DLL Loading (runtime)
 - Separated Platform - Engine code
 - Separated Engine - Game code
-- Multiple Windows
+- Multiple Window Support
 
 **Planned:**
 - Platforms
@@ -23,6 +28,7 @@ Wyvern Engine is a 2D and 3D game engine developed in C/C++
     - MacOS
     - Consoles (?)
 - Render APIs
+    - OpenGL ES
     - Vulkan
     - Direct3D 9 (maybe for older platforms)
     - Direct3D 12
