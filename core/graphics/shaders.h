@@ -26,15 +26,15 @@ enum WYVERN_CORE_API ShaderFormat
 struct WYVERN_CORE_API HLSLShaderSources
 {
 	ShaderDataType	dataType;
-	const char*		pVertexShader;
-	const char*		pPixelShader;
+	const WSTRING	pVertexShader;
+	const WSTRING	pPixelShader;
 };
 
 struct WYVERN_CORE_API GLSLShaderSources
 {
 	ShaderDataType	dataType;
-	const char*		pVertexShdader;
-	const char*		pFragmentShader;
+	const STRING	pVertexShader;
+	const STRING	pFragmentShader;
 };
 
 struct WYVERN_CORE_API HLSLShaderBuffers
@@ -51,14 +51,14 @@ struct WYVERN_CORE_API GLSLShaderBuffers
 
 struct WYVERN_CORE_API ShaderInfo
 {
-	const char*			pName;
+	const STRING		pName;
 	HLSLShaderSources	hlslSources;
 	GLSLShaderSources	glslSources;
 };
 
 struct WYVERN_CORE_API Shader
 {
-	const char*			pName;
+	const STRING		pName;
 	HLSLShaderBuffers	hlslBuffers;
 	GLSLShaderBuffers	glslBuffers;
 };

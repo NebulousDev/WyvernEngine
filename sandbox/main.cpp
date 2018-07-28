@@ -43,8 +43,8 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 	SetContextCurrent(context);
 
 	HLSLShaderSources testShaderHLSLsources = {};
-	testShaderHLSLsources.pVertexShader		= "shaders/vertTestShader.hlsl";
-	testShaderHLSLsources.pPixelShader		= "shaders/pixelTestShader.hlsl";
+	testShaderHLSLsources.pVertexShader		= L"assets\\shaders\\vertTestShader.cso";
+	testShaderHLSLsources.pPixelShader		= L"assets\\shaders\\pixelTestShader.cso";
 
 	ShaderInfo testShaderInfo	= {};
 	testShaderInfo.pName		= "Test Shader";
@@ -52,6 +52,10 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 
 	ShaderHandle shader = CreateShader(context, testShaderInfo);
 
+	BindShader(shader);
+	UnbindShader();
+	//DisposeShader(&shader);
+	//DisposeContext(&context);
 }
 
 WYVERN_DLL_API void Loop(const Application* app)

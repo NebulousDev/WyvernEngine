@@ -28,6 +28,9 @@ typedef uint64*					ptr64;
 #define BITS32					bitfield32
 #define BITS64					bitfield64
 
+#define STRING					char*
+#define WSTRING					wchar_t*
+
 #define WYVHANDLE				int32
 #define WYVPTRHANDLE			ptr32
 

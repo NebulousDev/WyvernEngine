@@ -9,13 +9,16 @@ RESULT D3D11CreateShader(Shader** ppShader, const Context* pContext, const Shade
 	Shader* pShader = *ppShader;
 	ID3DBlob* pShaderBlob;
 
+	uint32 error = S_OK;
+
 	if (info.hlslSources.pVertexShader)
 	{
 		ID3D11VertexShader* pVertexShader;
 
-		if (D3DReadFileToBlob((LPCWSTR)info.hlslSources.pVertexShader, &pShaderBlob) != S_OK)
+		if ((error = D3DReadFileToBlob((LPCWSTR)info.hlslSources.pVertexShader, &pShaderBlob)) != S_OK)
 		{
-			std::cout << "D3D11 Shader Error: Failed to locate shader '" << info.hlslSources.pVertexShader << "'." << std::endl;
+			std::wcout << L"D3D11 Shader Error: Failed to load shader '" << info.hlslSources.pVertexShader << L"'." << std::endl;
+			std::wcout << L"DXError Code: " << error << std::endl;
 			return FAILURE;
 		}
 
@@ -31,9 +34,10 @@ RESULT D3D11CreateShader(Shader** ppShader, const Context* pContext, const Shade
 	{
 		ID3D11PixelShader* pPixelShader;
 
-		if (D3DReadFileToBlob((LPCWSTR)info.hlslSources.pPixelShader, &pShaderBlob) != S_OK)
+		if ((error = D3DReadFileToBlob((LPCWSTR)info.hlslSources.pPixelShader, &pShaderBlob)) != S_OK)
 		{
-			std::cout << "D3D11 Shader Error: Failed to locate shader '" << info.hlslSources.pVertexShader << "'." << std::endl;
+			std::wcout << L"D3D11 Shader Error: Failed to load shader '" << info.hlslSources.pPixelShader << L"'." << std::endl;
+			std::wcout << L"DXError Code: " << error << std::endl;
 			return FAILURE;
 		}
 
@@ -48,10 +52,18 @@ RESULT D3D11CreateShader(Shader** ppShader, const Context* pContext, const Shade
 	return SUCCESS;
 }
 
-RESULT D3D11DisposeShader(Shader** pShader)
+RESULT D3D11DisposeShader(Shader** ppShader)
 {
-	delete *pShader;
-	pShader = NULLPTR;
+	Shader* pShader = *ppShader;
+
+	if (pShader->hlslBuffers.hVertexBuffer)
+		((ID3D11VertexShader*)pShader->hlslBuffers.hVertexBuffer)->Release();
+
+	if (pShader->hlslBuffers.hPixelBuffer)
+		((ID3D11PixelShader*)pShader->hlslBuffers.hPixelBuffer)->Release();
+
+	delete pShader;
+	ppShader = NULLPTR;
 	return SUCCESS;
 }
 
