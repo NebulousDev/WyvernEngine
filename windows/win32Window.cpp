@@ -57,7 +57,7 @@ RESULT Win32CreateWindow(Window* window, const WindowInfo info)
 		}
 	}
 
-	window->instance	= (WYVPTRHANDLE)winHandle;
+	window->hInstance	= (WYVPTRHANDLE)winHandle;
 	window->title		= info.title;
 	window->width		= width;
 	window->height		= height;
@@ -71,7 +71,7 @@ RESULT Win32CreateWindow(Window* window, const WindowInfo info)
 
 RESULT Win32FreeWindow(Window* window)
 {
-	if (DestroyWindow((HWND)window->instance))
+	if (DestroyWindow((HWND)window->hInstance))
 	{
 		window->valid = false;
 		return SUCCESS;
@@ -87,7 +87,7 @@ RESULT Win32SetWindowSize(Window* window, uint32 width, uint32 height)
 
 RESULT Win32ShowWindow(Window* window)
 {
-	if (!ShowWindow((HWND)window->instance, true))
+	if (!ShowWindow((HWND)window->hInstance, true))
 	{
 		//TODO: throw error?
 		return FAILURE;
@@ -100,7 +100,7 @@ RESULT Win32ShowWindow(Window* window)
 
 RESULT Win32HideWindow(Window* window)
 {
-	if (!ShowWindow((HWND)window->instance, false))
+	if (!ShowWindow((HWND)window->hInstance, false))
 	{
 		//TODO: throw error?
 		return FAILURE;

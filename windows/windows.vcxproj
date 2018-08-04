@@ -101,13 +101,8 @@
     </ClCompile>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
-if not exist "$(SolutionDir)bin\assets" mkdir "$(SolutionDir)bin\assets"
-if not exist "$(SolutionDir)windows\assets" mkdir "$(SolutionDir)windows\assets"
 cd $(TargetDir)
-copy "$(TargetName).exe" "$(SolutionDir)bin"
-cd $(SolutionDir)
-copy "assets" "$(SolutionDir)bin\assets"
-copy "assets" "$(SolutionDir)windows\assets"</Command>
+copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>user32.lib;wyverncore.lib</AdditionalDependencies>
@@ -125,13 +120,8 @@ copy "assets" "$(SolutionDir)windows\assets"</Command>
     </ClCompile>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
-if not exist "$(SolutionDir)bin\assets" mkdir "$(SolutionDir)bin\assets"
-if not exist "$(SolutionDir)windows\assets" mkdir "$(SolutionDir)windows\assets"
 cd $(TargetDir)
-copy "$(TargetName).exe" "$(SolutionDir)bin"
-cd $(SolutionDir)
-copy "assets" "$(SolutionDir)bin\assets"
-copy "assets" "$(SolutionDir)windows\assets"</Command>
+copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>user32.lib;wyverncore.lib</AdditionalDependencies>
@@ -157,13 +147,8 @@ copy "assets" "$(SolutionDir)windows\assets"</Command>
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
-if not exist "$(SolutionDir)bin\assets" mkdir "$(SolutionDir)bin\assets"
-if not exist "$(SolutionDir)windows\assets" mkdir "$(SolutionDir)windows\assets"
 cd $(TargetDir)
-copy "$(TargetName).exe" "$(SolutionDir)bin"
-cd $(SolutionDir)
-copy "assets" "$(SolutionDir)bin\assets"
-copy "assets" "$(SolutionDir)windows\assets"</Command>
+copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -185,13 +170,8 @@ copy "assets" "$(SolutionDir)windows\assets"</Command>
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin" mkdir "$(SolutionDir)bin"
-if not exist "$(SolutionDir)bin\assets" mkdir "$(SolutionDir)bin\assets"
-if not exist "$(SolutionDir)windows\assets" mkdir "$(SolutionDir)windows\assets"
 cd $(TargetDir)
-copy "$(TargetName).exe" "$(SolutionDir)bin"
-cd $(SolutionDir)
-copy "assets" "$(SolutionDir)bin\assets"
-copy "assets" "$(SolutionDir)windows\assets"</Command>
+copy "$(TargetName).exe" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
