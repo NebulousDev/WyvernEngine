@@ -1,19 +1,15 @@
 #pragma once
+
 #include <graphics\graphics.h>
+#include <graphics\gfxapi.h>
 
-#define WYVERN_D3D11_API __declspec(dllexport)
+#include "d3d11Context.h"
+#include "d3d11Layout.h"
+#include "d3d11Buffers.h"
+#include "d3d11Shaders.h"
+#include "d3d11Target.h"
 
-WYVERN_D3D11_API RESULT D3D11CreateContext(Context** context, ContextInfo info, const Window* window);
-
-WYVERN_D3D11_API RESULT D3D11DisposeContext(Context* context);
-
-WYVERN_D3D11_API RESULT D3D11SetContextCurrent(Context* context);
-
-WYVERN_D3D11_API RESULT D3D11CreateRenderTarget(RenderTarget* target, const RenderTargetInfo info, Context* context);
-
-WYVERN_D3D11_API RESULT D3D11ClearRenderTarget(const RenderTarget* target, const Context* context, const float32 color[4]);
-
-WYVERN_D3D11_API RESULT D3D11Present(const Context* context);
+WYVERN_GFX_API RESULT D3D11Present(const Context* context);
 
 // Define the function to create a D3D11 context (wonky, subject to change)
 #define RENDER_DEVICE_DIRECT3D_11 \

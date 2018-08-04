@@ -184,13 +184,21 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="d3d11Buffers.cpp" />
+    <ClCompile Include="d3d11Context.cpp" />
     <ClCompile Include="d3d11Graphics.cpp" />
+    <ClCompile Include="d3d11Layout.cpp" />
     <ClCompile Include="d3d11Shaders.cpp" />
+    <ClCompile Include="d3d11Target.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="d3d11.h" />
+    <ClInclude Include="d3d11Buffers.h" />
+    <ClInclude Include="d3d11Context.h" />
     <ClInclude Include="d3d11Graphics.h" />
+    <ClInclude Include="d3d11Layout.h" />
     <ClInclude Include="d3d11Shaders.h" />
+    <ClInclude Include="d3d11Target.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

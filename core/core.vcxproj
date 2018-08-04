@@ -168,8 +168,13 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="graphics\buffers.h" />
+    <ClInclude Include="graphics\colorFormat.h" />
+    <ClInclude Include="graphics\context.h" />
+    <ClInclude Include="graphics\gfxapi.h" />
     <ClInclude Include="graphics\graphics.h" />
+    <ClInclude Include="graphics\layout.h" />
     <ClInclude Include="graphics\shaders.h" />
+    <ClInclude Include="graphics\target.h" />
     <ClInclude Include="platform\platform.h" />
     <ClInclude Include="platform\runtime.h" />
     <ClInclude Include="types.h" />
@@ -177,8 +182,11 @@ copy "$(TargetName).dll" "$(SolutionDir)bin"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graphics\buffers.cpp" />
+    <ClCompile Include="graphics\context.cpp" />
     <ClCompile Include="graphics\graphics.cpp" />
+    <ClCompile Include="graphics\layout.cpp" />
     <ClCompile Include="graphics\shaders.cpp" />
+    <ClCompile Include="graphics\target.cpp" />
     <ClCompile Include="platform\platform.cpp" />
     <ClCompile Include="platform\runtime.cpp" />
     <ClCompile Include="platform\window.cpp" />

@@ -33,6 +33,8 @@ typedef uint64*					ptr64;
 
 #define WYVHANDLE				int32
 #define WYVPTRHANDLE			ptr32
+#define INVALID_HANDLE			-1
+#define INVALID_PTRHANDLE		nullptr
 
 #ifdef COMPILE_64
 #define HANDLE					uint64;

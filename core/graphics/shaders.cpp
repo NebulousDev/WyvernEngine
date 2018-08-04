@@ -8,9 +8,9 @@ const ShaderHandle CreateShader(const ContextHandle context, const ShaderInfo in
 	return (ShaderHandle)pShader;
 }
 
-void DisposeShader(ShaderHandle* phShader)
+void ReleaseShader(ShaderHandle* phShader)
 {
-	GetCurrentContext()->fpDisposeShader((Shader**)phShader);
+	GetCurrentContext()->fpReleaseShader((Shader**)phShader);
 	*phShader = NULLPTR;
 }
 

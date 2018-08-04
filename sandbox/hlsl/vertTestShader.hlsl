@@ -1,18 +1,21 @@
 
-struct VertexInput
+struct VSInput
 {
-	float4 position : POSITION0;
+	float3 vertPosition : POSITION;
+	float4 vertColor : COLOR;
 };
 
-struct VertexOutput
+struct VSOutput
 {
-	float4 position : POSITION0;
+	float3 interpPosition : POSITION;
+	float4 interpColor : COLOR;
 };
 
-VertexOutput VertexMain(VertexInput input)
+VSOutput VertexMain(VSInput input)
 {
-	VertexOutput output;
-	output.position = input.position;
+	VSOutput output;
+	output.interpPosition = input.vertPosition;
+	output.interpColor = input.vertColor;
 
 	return output;
 }

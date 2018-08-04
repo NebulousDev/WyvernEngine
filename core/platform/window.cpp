@@ -6,9 +6,9 @@ static Window			sWindows[MAX_WINDOWS] = {};
 static uint32			sNextWindow = 0;
 static bool8			sInitialized = false;
 
-bool8 ValidateHandle(WindowHandle handle)
+bool8 ValidateWindowHandle(WindowHandle hHandle)
 {
-	return handle > -1 && handle < 65 && sWindows[handle].valid;
+	return hHandle > -1 && hHandle < (MAX_WINDOWS + 1) && sWindows[hHandle].valid;
 }
 
 const WindowHandle CreateWindow(const WindowInfo info)
@@ -24,35 +24,35 @@ const WindowHandle CreateWindow(const WindowInfo info)
 		sInitialized = true;
 	}
 
-	if (sNextWindow > 64)
+	if (sNextWindow > MAX_WINDOWS)
 	{
 		//TODO: throw error?
 		return INVALID_HANDLE;
 	}
 
-	WindowHandle handle = sNextWindow;
+	WindowHandle hWindow = sNextWindow;
 
-	if (!GetPlatform()->fpCreateWindow(&sWindows[handle], info))
+	if (!GetPlatform()->fpCreateWindow(&sWindows[hWindow], info))
 	{
 		//TODO: throw error?
 		return INVALID_HANDLE;
 	}
 
-	sNextWindow = sWindows[handle].next;
-	Window* window = &sWindows[handle];
+	sNextWindow = sWindows[hWindow].next;
+	Window* pWindow = &sWindows[hWindow];
 
-	return handle;
+	return hWindow;
 }
 
-RESULT FreeWindow(WindowHandle* handle)
+RESULT FreeWindow(WindowHandle* phWindow)
 {
-	if (handle != NULLPTR && ValidateHandle(*handle))
+	if (phWindow != NULLPTR && ValidateWindowHandle(*phWindow))
 	{
-		if (GetPlatform()->fpFreeWindow(&sWindows[*handle]))
+		if (GetPlatform()->fpFreeWindow(&sWindows[*phWindow]))
 		{
-			sWindows[*handle].next = sNextWindow;
-			sNextWindow = sWindows[*handle].id;
-			*handle = INVALID_HANDLE;
+			sWindows[*phWindow].next = sNextWindow;
+			sNextWindow = sWindows[*phWindow].id;
+			*phWindow = INVALID_HANDLE;
 			return SUCCESS;
 		}
 	}
@@ -60,52 +60,52 @@ RESULT FreeWindow(WindowHandle* handle)
 	return FAILURE;
 }
 
-const Window* GetWindow(WindowHandle window)
+const Window* GetWindow(WindowHandle hWindow)
 {
-	if (ValidateHandle(window))
-		return &sWindows[window];
+	if (ValidateWindowHandle(hWindow))
+		return &sWindows[hWindow];
 
 	return NULLPTR;
 }
 
-const WYVPTRHANDLE GetWindowInstance(WindowHandle window)
+const WYVPTRHANDLE GetWindowInstance(WindowHandle hWindow)
 {
-	if (ValidateHandle(window))
-		return sWindows[window].instance;
+	if (ValidateWindowHandle(hWindow))
+		return sWindows[hWindow].hInstance;
 
 	return NULLPTR;
 }
 
-RESULT GetWindowSize(const WindowHandle window, uint32* width, uint32* height)
+RESULT GetWindowSize(const WindowHandle hWindow, uint32* pWidth, uint32* pHeight)
 {
-	if (ValidateHandle(window))
+	if (ValidateWindowHandle(hWindow))
 	{
-		*width = sWindows[window].width;
-		*height = sWindows[window].height;
+		*pWidth = sWindows[hWindow].width;
+		*pHeight = sWindows[hWindow].height;
 		return SUCCESS;
 	}
 
 	return FAILURE;
 }
 
-RESULT SetWindowSize(const WindowHandle window, uint32 width, uint32 height)
+RESULT SetWindowSize(const WindowHandle hWindow, uint32 width, uint32 height)
 {
-	if (ValidateHandle(window))
+	if (ValidateWindowHandle(hWindow))
 	{
-		if (GetPlatform()->fpSetWindowSize(&sWindows[window], width, height))
+		if (GetPlatform()->fpSetWindowSize(&sWindows[hWindow], width, height))
 			return SUCCESS;
 	}
 	
 	return FAILURE;
 }
 
-RESULT ShowWindow(const WindowHandle window)
+RESULT ShowWindow(const WindowHandle hWindow)
 {
-	if (ValidateHandle(window))
+	if (ValidateWindowHandle(hWindow))
 	{
-		if (GetPlatform()->fpShowWindow(&sWindows[window]))
+		if (GetPlatform()->fpShowWindow(&sWindows[hWindow]))
 		{
-			sWindows[window].flags |= WINDOW_SHOWN;
+			sWindows[hWindow].flags |= WINDOW_SHOWN;
 			return SUCCESS;
 		}
 	}
@@ -113,13 +113,13 @@ RESULT ShowWindow(const WindowHandle window)
 	return FAILURE;
 }
 
-RESULT HideWindow(const WindowHandle window)
+RESULT HideWindow(const WindowHandle hWindow)
 {
-	if (ValidateHandle(window))
+	if (ValidateWindowHandle(hWindow))
 	{
-		if (GetPlatform()->fpShowWindow(&sWindows[window]))
+		if (GetPlatform()->fpShowWindow(&sWindows[hWindow]))
 		{
-			sWindows[window].flags &= ~WINDOW_SHOWN;
+			sWindows[hWindow].flags &= ~WINDOW_SHOWN;
 			return SUCCESS;
 		}
 	}
