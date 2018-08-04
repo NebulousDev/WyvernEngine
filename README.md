@@ -14,9 +14,12 @@ Wyvern Engine is a 2D and 3D game engine developed in C/C++
         - Context Creation
     - Direct3D 11
         - Context Creation
+        - Input Layouts (Shader-Independent)
+        - Vertex / Index Buffers
         - Vertex Shaders
         - Pixel Shaders
 - Hot-loadable DLLs
+- Hot-swappable Render APIs
 - Platform Independant DLL Loading (runtime)
 - Separated Platform - Engine code
 - Separated Engine - Game code
@@ -33,21 +36,31 @@ Wyvern Engine is a 2D and 3D game engine developed in C/C++
     - Direct3D 9 (maybe for older platforms)
     - Direct3D 12
 - Geometry / Tesselation
-- Component Render/Engity System
+- Full Render Pipeline
+- Component Render/Entity System
 - Physics Engine (Bullet or maybe custom?)
 - OBJ/FBX/DAE Loading
 - Custom Texture and Model formats
 - Tools
-    - World Editor
+    - Full UI/ World Editor
     - Texture Editor
     - Visual Shaders
+    - Shader Material Graph
 - Plugin/Mod support
 
 ## Build
 
-Git:
+**Git:**
 
     git clone https://github.com/NebulousDev/WyvernEngine.git
+
+**Dependencies:**
+
+(Build path in progress)
+
+- Windows SDK (W8+)
+- Vulkan SDK
+- GLEW
 
 ## Versioning
 
