@@ -12,14 +12,15 @@ enum WYVERN_CORE_API BufferUsage
 enum WYVERN_CORE_API BufferType
 {
 	BUFFER_TYPE_VERTEX,
+	BUFFER_TYPE_INDEX,
 	BUFFER_TYPE_UNIFORM
 };
 
 struct WYVERN_CORE_API BufferInfo
 {
 	const STRING	bufferName;
-	uint32			byteSize;
-	uint8*			pData;
+	uint32			count;
+	void*			pData;
 	uint32			stride;
 	uint32			offset;
 	BufferUsage		bufferUsage;

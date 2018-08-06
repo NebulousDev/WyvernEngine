@@ -44,6 +44,8 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 	ContextHandle context = CreateContext(wind, contextInfo);
 	SetContextCurrent(context);
 
+	// SHADERS ////////////////////////////////////////////////////////////////
+
 	HLSLShaderSources testShaderHLSLsources = {};
 	testShaderHLSLsources.vertexShaderSource = L"assets\\shaders\\vertTestShader.cso";
 	testShaderHLSLsources.pixelShaderSource = L"assets\\shaders\\pixelTestShader.cso";
@@ -54,35 +56,59 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 
 	ShaderHandle shader = CreateShader(context, testShaderInfo);
 
-	uint8 bufferData[] = 
+	// VERTEX BUFFERS /////////////////////////////////////////////////////////
+
+	float32 vertexData[] = 
 	{
-		0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+		 0.0f,  0.5f, 0.5f,   1.0f, 0.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f, 0.5f,   0.0f, 1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f,   0.0f, 0.0f, 1.0f, 1.0f,
 	};
 
 	BufferInfo vertBufferInfo	= {};
-	vertBufferInfo.bufferName	= "Test Vertex Buffer";
+	vertBufferInfo.bufferName	= "VertBuffer";
 	vertBufferInfo.bufferType	= BUFFER_TYPE_VERTEX;
-	vertBufferInfo.byteSize		= 10;
-	vertBufferInfo.pData		= bufferData;
+	vertBufferInfo.count		= sizeof(vertexData);
+	vertBufferInfo.stride		= 7 * 4;
+	vertBufferInfo.pData		= vertexData;
 	vertBufferInfo.bufferUsage	= BUFFER_USAGE_IMMUTABLE;
 
 	BufferHandle vertBuffer = CreateBuffer(vertBufferInfo);
 
+	uint32 indexData[] =
+	{ 0, 1, 2 };
+
+	BufferInfo indexBufferInfo	= {};
+	indexBufferInfo.bufferName	= "IdxBuffer";
+	indexBufferInfo.bufferType	= BUFFER_TYPE_INDEX;
+	indexBufferInfo.count		= sizeof(indexData);
+	indexBufferInfo.stride		= 1 * 4;
+	indexBufferInfo.pData		= indexData;
+	indexBufferInfo.bufferUsage = BUFFER_USAGE_IMMUTABLE;
+
+	BufferHandle idxBuffer = CreateBuffer(indexBufferInfo);
+
+	// INPUT LAYOUT ////////////////////////////////////////////////////////////
+
 	InputElement elements[2] =
 	{
 		{ "vertPosition", ELEMENT_USAGE_POSITION, 0, ELEMENT_FORMAT_FLOAT3, 0,  0, LAYOUT_TYPE_VERTEX, 0 },
-		{ "vertColor",    ELEMENT_USAGE_COLOR, 0, ELEMENT_FORMAT_FLOAT4,    0, 12, LAYOUT_TYPE_VERTEX, 0 }
+		{ "vertColor",    ELEMENT_USAGE_COLOR,    0, ELEMENT_FORMAT_FLOAT4, 0, 12, LAYOUT_TYPE_VERTEX, 0 }
 	};
 
 	InputLayoutInfo inputLayoutInfo { elements, 2 };
-
 	InputLayoutHandle inputLayout = CreateInputLayout(inputLayoutInfo);
+
+	// BIND DATA ///////////////////////////////////////////////////////////////
 
 	BindInputLayout(inputLayout);
 	BindShader(shader);
 	BindBuffer(vertBuffer);
+	BindBuffer(idxBuffer);
 
 	// DRAW
+
+	SetPrimitiveType(PRIMITIVE_TRIANGLE);
 
 	//UnbindShader();
 	//DisposeShader(&shader);
@@ -92,5 +118,6 @@ WYVERN_DLL_API void Start(const Application* app, const Platform* platform)
 WYVERN_DLL_API void Loop(const Application* app)
 {
 	ClearBackbuffer(colors);
+	DrawIndexed(0, 3);
 	Present();
 }

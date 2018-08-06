@@ -6,7 +6,7 @@ RESULT D3D11CreateBuffer(Buffer** ppBuffer, const Context* pContext, const Buffe
 	ID3D11Buffer* pD3D11Buffer = NULLPTR;
 
 	D3D11_BUFFER_DESC bufferDesc = {};
-	bufferDesc.ByteWidth = info.byteSize;
+	bufferDesc.ByteWidth = info.count;
 
 	switch (info.bufferUsage)
 	{
@@ -24,6 +24,7 @@ RESULT D3D11CreateBuffer(Buffer** ppBuffer, const Context* pContext, const Buffe
 	switch (info.bufferType)
 	{
 		case BUFFER_TYPE_VERTEX:	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;	break;
+		case BUFFER_TYPE_INDEX:		bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;		break;
 
 		default:
 		{
@@ -39,7 +40,7 @@ RESULT D3D11CreateBuffer(Buffer** ppBuffer, const Context* pContext, const Buffe
 
 	if (info.pData == NULLPTR)
 	{
-		data = new uint8[info.byteSize]{};
+		data = new uint8[info.count]{};
 		subResourceData.pSysMem = data;
 		genData = true;
 	}
@@ -60,7 +61,7 @@ RESULT D3D11CreateBuffer(Buffer** ppBuffer, const Context* pContext, const Buffe
 	Buffer* pBuffer			= new Buffer;
 	pBuffer->bufferName		= info.bufferName;
 	pBuffer->hBuffer		= (WYVPTRHANDLE)pD3D11Buffer;
-	pBuffer->byteSize		= info.byteSize;
+	pBuffer->byteSize		= info.count;
 	pBuffer->bufferUsage	= info.bufferUsage;
 	pBuffer->bufferType		= info.bufferType;
 	pBuffer->stride			= info.stride;
@@ -92,6 +93,12 @@ RESULT D3D11BindBuffer(Buffer* pBuffer, const Context* pContext)
 		case BUFFER_TYPE_VERTEX:
 		{
 			pDeviceContext->IASetVertexBuffers(0, 1, &pD3D11Buffer, &pBuffer->stride, &pBuffer->offset);
+			break;
+		}
+
+		case BUFFER_TYPE_INDEX:
+		{
+			pDeviceContext->IASetIndexBuffer(pD3D11Buffer, DXGI_FORMAT_R32_UINT, pBuffer->offset);
 			break;
 		}
 

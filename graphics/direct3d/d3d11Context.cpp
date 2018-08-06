@@ -45,6 +45,9 @@ void D3D11SetupFunctions(Context* context)
 	context->fpCreateRenderTarget		= D3D11CreateRenderTarget;
 	context->fpClearRenderTarget		= D3D11ClearRenderTarget;
 
+	context->fpSetPrimitiveType			= D3D11SetPrimitiveType;
+	context->fpDrawIndexed				= D3D11DrawIndexed;
+
 	context->fpPresent					= D3D11Present;
 }
 

@@ -12,17 +12,19 @@
 //Re-definition
 typedef WYVHANDLE WindowHandle;
 
-struct Window;
-struct Context;
-struct ContextInfo;
-struct RenderTarget;
-struct RenderTargetInfo;
-struct InputLayout;
-struct InputLayoutInfo;
-struct Buffer;
-struct BufferInfo;
-struct Shader;
-struct ShaderInfo;
+struct	Window;
+struct	Context;
+struct	ContextInfo;
+struct	RenderTarget;
+struct	RenderTargetInfo;
+struct	InputLayout;
+struct	InputLayoutInfo;
+struct	Buffer;
+struct	BufferInfo;
+struct	Shader;
+struct	ShaderInfo;
+
+enum	PrimitiveType;
 
 struct WYVERN_CORE_API ContextInfo
 {
@@ -62,6 +64,10 @@ struct WYVERN_CORE_API Context
 
 	typedef RESULT(*CreateRenderTargetFunc)(RenderTarget** ppTarget, const Context* pContext, const RenderTargetInfo info);
 	typedef RESULT(*ClearRenderTargetFunc)(const RenderTarget* pTarget, const Context* pContext, const float32 color[4]);
+
+	typedef RESULT(*SetPrimitiveTypeFunc)(const PrimitiveType type, const Context* pContext);
+	typedef RESULT(*DrawIndexedFunc)(const Context* pContext, const uint32 idxStart, const uint32 idxCount);
+	
 	typedef	RESULT(*PresentFunc)(const Context* pContext);
 
 	CreateContextFunc		fpCreateContext;
@@ -85,6 +91,10 @@ struct WYVERN_CORE_API Context
 
 	CreateRenderTargetFunc	fpCreateRenderTarget;
 	ClearRenderTargetFunc	fpClearRenderTarget;
+
+	SetPrimitiveTypeFunc	fpSetPrimitiveType;
+	DrawIndexedFunc			fpDrawIndexed;
+
 	PresentFunc				fpPresent;
 };
 

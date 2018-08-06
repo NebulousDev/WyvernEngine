@@ -81,6 +81,9 @@ RESULT D3D11BindShader(Shader* pShader, const Context* pContext)
 	if (pShader->hlslBuffers.hVertexBuffer)
 		pDeviceContext->VSSetShader((ID3D11VertexShader*)buffers.hVertexBuffer, NULLPTR, 0);
 
+	if (pShader->hlslBuffers.hPixelBuffer)
+		pDeviceContext->PSSetShader((ID3D11PixelShader*)buffers.hPixelBuffer, NULLPTR, 0);
+
 	return SUCCESS;
 }
 

@@ -7,15 +7,14 @@ struct VSInput
 
 struct VSOutput
 {
-	float3 interpPosition : POSITION;
+	float4 interpPosition : SV_POSITION;
 	float4 interpColor : COLOR;
 };
 
 VSOutput VertexMain(VSInput input)
 {
 	VSOutput output;
-	output.interpPosition = input.vertPosition;
+	output.interpPosition = float4(input.vertPosition, 1.0f);
 	output.interpColor = input.vertColor;
-
 	return output;
 }
